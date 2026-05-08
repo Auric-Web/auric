@@ -5,6 +5,7 @@ import React, {
   PointerEvent,
   SVGProps,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -16,6 +17,11 @@ const EMAIL = "hello@theauricstudios.com";
 const INSTAGRAM_URL = "https://www.instagram.com/auricstudio.co/";
 const LINKEDIN_URL = "https://www.linkedin.com/company/auricstudios";
 const WEBSITE_URL = "https://theauricstudios.com";
+
+const CAELUS_NEW_LOGO = "/showcase/caelus-new-logo.png";
+const CAELUS_NEW_CARD = "/showcase/caelus-new-business-card.png";
+const CAELUS_OLD_LOGO_1 = "/showcase/caelus-old-logo-1.png";
+const CAELUS_OLD_LOGO_2 = "/showcase/caelus-old-logo-2.png";
 
 type IconName =
   | "arrow"
@@ -30,6 +36,24 @@ type PackageItem = {
   label: string;
   description: string;
   items: string[];
+};
+
+type NoteItem = {
+  x: string;
+  y: string;
+  side?: "left" | "right";
+  text: string;
+  width?: string;
+};
+
+type ExampleId = "website" | "cards" | "logos";
+
+type ShowcaseItem = {
+  id: ExampleId;
+  tab: string;
+  title: string;
+  beforeNotes: NoteItem[];
+  afterNotes: NoteItem[];
 };
 
 const packages: PackageItem[] = [
@@ -70,6 +94,144 @@ const packages: PackageItem[] = [
       "Social profile setup",
       "Review capture flow",
       "Basic tracking setup",
+    ],
+  },
+];
+
+const showcaseItems: ShowcaseItem[] = [
+  {
+    id: "website",
+    tab: "Website",
+    title: "Website Refresh",
+    beforeNotes: [
+      {
+        x: "7%",
+        y: "15%",
+        side: "right",
+        text: "Generic hero with weak first impression.",
+      },
+      {
+        x: "8%",
+        y: "60%",
+        side: "right",
+        text: "Poor hierarchy and cluttered service blocks.",
+      },
+      {
+        x: "63%",
+        y: "26%",
+        side: "left",
+        text: "No clear structure or confident positioning.",
+      },
+    ],
+    afterNotes: [
+      {
+        x: "7%",
+        y: "16%",
+        side: "right",
+        text: "Sharper positioning and more professional tone.",
+      },
+      {
+        x: "62%",
+        y: "25%",
+        side: "left",
+        text: "Cleaner service split improves clarity fast.",
+      },
+      {
+        x: "58%",
+        y: "72%",
+        side: "left",
+        text: "Stronger CTAs and contact path help convert inquiries.",
+      },
+    ],
+  },
+  {
+    id: "cards",
+    tab: "Business Cards",
+    title: "Business Card Refresh",
+    beforeNotes: [
+      {
+        x: "9%",
+        y: "18%",
+        side: "right",
+        text: "Too busy and visually dated.",
+      },
+      {
+        x: "58%",
+        y: "50%",
+        side: "left",
+        text: "Weak spacing and low-end presentation.",
+      },
+      {
+        x: "10%",
+        y: "76%",
+        side: "right",
+        text: "Looks like a starter mockup, not a serious brand asset.",
+      },
+    ],
+    afterNotes: [
+      {
+        x: "9%",
+        y: "17%",
+        side: "right",
+        text: "Premium visual style increases perceived quality.",
+      },
+      {
+        x: "62%",
+        y: "38%",
+        side: "left",
+        text: "Cleaner layout improves readability and credibility.",
+      },
+      {
+        x: "58%",
+        y: "77%",
+        side: "left",
+        text: "Better brand consistency for meetings and networking.",
+      },
+    ],
+  },
+  {
+    id: "logos",
+    tab: "Logos",
+    title: "Logo Refresh",
+    beforeNotes: [
+      {
+        x: "9%",
+        y: "20%",
+        side: "right",
+        text: "Old concepts feel generic and inconsistent.",
+      },
+      {
+        x: "58%",
+        y: "38%",
+        side: "left",
+        text: "Mismatch in style weakens brand recognition.",
+      },
+      {
+        x: "9%",
+        y: "74%",
+        side: "right",
+        text: "The identity does not feel modern or premium.",
+      },
+    ],
+    afterNotes: [
+      {
+        x: "9%",
+        y: "20%",
+        side: "right",
+        text: "Cleaner mark gives the brand a stronger identity.",
+      },
+      {
+        x: "62%",
+        y: "38%",
+        side: "left",
+        text: "Sharper execution feels more premium and intentional.",
+      },
+      {
+        x: "58%",
+        y: "76%",
+        side: "left",
+        text: "A stronger logo carries better across web and print.",
+      },
     ],
   },
 ];
@@ -200,98 +362,247 @@ function PackageCard({ item }: { item: PackageItem }) {
   );
 }
 
-function BeforePanel() {
-  return (
-    <div className="absolute inset-0 overflow-hidden bg-[#f0f0f0] text-[#17405a]">
-      <div className="flex h-14 items-center justify-between bg-[#145274] px-5 text-[11px] font-bold uppercase tracking-wide text-white">
-        <img
-          src={BEFORE_LOGO_SRC}
-          alt="Before logo"
-          className="h-8 w-8 object-contain"
-        />
+function OverlayNotes({
+  notes,
+  tone,
+}: {
+  notes: NoteItem[];
+  tone: "before" | "after";
+}) {
+  const lineColor =
+    tone === "before" ? "bg-red-300/65" : "bg-[#C9A55C]/80";
+  const boxBorder =
+    tone === "before" ? "border-red-300/45" : "border-[#C9A55C]/45";
+  const boxText = tone === "before" ? "text-white/88" : "text-[#F5F0E8]";
 
+  return (
+    <div className="pointer-events-none absolute inset-0 z-30">
+      {notes.map((note, index) => {
+        const isRight = note.side !== "left";
+        return (
+          <div
+            key={`${tone}-${index}`}
+            className="absolute"
+            style={{ left: note.x, top: note.y }}
+          >
+            <div
+              className={`flex items-center gap-2 ${
+                isRight ? "" : "flex-row-reverse"
+              }`}
+            >
+              <span className={`h-px w-7 shrink-0 ${lineColor}`} />
+              <div
+                className={`rounded-md border ${boxBorder} bg-black/72 px-2.5 py-2 text-[10px] leading-4 shadow-[0_0_18px_rgba(0,0,0,0.28)] ${boxText}`}
+                style={{ width: note.width || "170px" }}
+              >
+                {note.text}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function OldWebsitePanel() {
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-[#eef1f5] text-[#244e66]">
+      <div className="flex h-14 items-center justify-between bg-[#1e607c] px-5 text-[10px] font-bold uppercase tracking-[0.24em] text-white">
+        <div className="flex items-center gap-2">
+          <div className="grid h-7 w-7 place-items-center rounded bg-white text-[#1e607c]">
+            C
+          </div>
+          <span>Caeluscore</span>
+        </div>
         <div className="hidden gap-5 md:flex">
           <span>Home</span>
           <span>Services</span>
+          <span>About</span>
           <span>Contact</span>
         </div>
-
-        <div className="rounded bg-white px-3 py-2 text-[#145274]">
-          Click Here
+        <div className="rounded bg-white px-3 py-1.5 text-[#1e607c]">
+          Start
         </div>
       </div>
 
-      <div className="grid h-[calc(100%-3.5rem)] place-items-center px-8 text-center">
-        <div>
-          <div className="mx-auto mb-5 w-fit border-4 border-dashed border-[#145274]/35 px-4 py-2 text-[11px] font-black uppercase">
-            Unclear First Impression
+      <div className="grid h-[calc(100%-3.5rem)] grid-cols-1 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="px-8 py-8">
+          <div className="mb-5 inline-block border-2 border-dashed border-[#1e607c]/35 px-3 py-2 text-[10px] font-black uppercase">
+            We do many things
           </div>
-
-          <h3 className="text-[clamp(1.7rem,5vw,4.8rem)] font-black leading-none tracking-[-0.05em]">
-            WELCOME TO OUR WEBSITE
+          <h3 className="max-w-xl text-[clamp(2rem,4vw,4.7rem)] font-black leading-[0.94] tracking-[-0.05em] text-[#21546f]">
+            WELCOME TO CAELUSCORE
           </h3>
-
-          <p className="mx-auto mt-5 max-w-2xl text-base font-bold text-[#2b637e]">
-            Generic headline. Weak trust. No clear contact path. No reason to
-            inquire.
+          <p className="mt-5 max-w-lg text-sm font-semibold leading-7 text-[#44718a]">
+            We offer engineering, staffing, operations, project support, audits,
+            inspection, logistics and other solutions for your needs.
           </p>
 
-          <div className="mt-7 flex justify-center gap-3">
-            <div className="border-2 border-[#145274] px-4 py-3 text-[11px] font-black uppercase">
-              Learn More
+          <div className="mt-7 flex gap-3">
+            <div className="border-2 border-[#1e607c] px-4 py-3 text-[11px] font-black uppercase">
+              Read More
             </div>
-
-            <div className="bg-[#145274] px-4 py-3 text-[11px] font-black uppercase text-white">
+            <div className="bg-[#1e607c] px-4 py-3 text-[11px] font-black uppercase text-white">
               Contact Us
             </div>
           </div>
+
+          <div className="mt-8 grid gap-3 md:grid-cols-2">
+            {[
+              "Industrial Support",
+              "Staffing",
+              "Engineering",
+              "Consulting",
+            ].map((item) => (
+              <div
+                key={item}
+                className="border-2 border-[#8fb0c3] bg-white px-4 py-5 text-sm font-bold"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-[#dce7ee] p-6">
+          <div className="rounded border-2 border-[#98b3c2] bg-white p-4">
+            <div className="text-[11px] font-black uppercase text-[#1e607c]">
+              Why Choose Us?
+            </div>
+            <ul className="mt-4 space-y-3 text-sm font-semibold text-[#456d85]">
+              <li>• Great service</li>
+              <li>• Many capabilities</li>
+              <li>• Flexible team</li>
+              <li>• Fast response</li>
+            </ul>
+          </div>
+
+          <div className="mt-4 rounded border-2 border-[#98b3c2] bg-white p-4">
+            <div className="text-[11px] font-black uppercase text-[#1e607c]">
+              Contact Form
+            </div>
+            <div className="mt-3 space-y-2">
+              <div className="h-9 border border-[#bdd0dc] bg-[#f5fafc]" />
+              <div className="h-9 border border-[#bdd0dc] bg-[#f5fafc]" />
+              <div className="h-20 border border-[#bdd0dc] bg-[#f5fafc]" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function AfterPanel() {
+function NewWebsitePanel() {
   return (
     <div className="absolute inset-0 overflow-hidden bg-[#050505] text-[#F5F0E8]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(201,165,92,0.18),transparent_26%),radial-gradient(circle_at_84%_18%,rgba(201,165,92,0.12),transparent_18%),linear-gradient(135deg,rgba(255,255,255,0.05),rgba(0,0,0,0.98))]" />
-      <div className="absolute inset-y-0 right-[18%] w-px rotate-[18deg] bg-gradient-to-b from-transparent via-[#C9A55C]/35 to-transparent" />
-      <div className="absolute left-[-8%] top-[-6%] h-[40%] w-[32%] rotate-[-35deg] border border-[#C9A55C]/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.2))]" />
-      <div className="absolute right-[-6%] bottom-[-10%] h-[42%] w-[26%] rotate-[34deg] border border-[#C9A55C]/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.25))]" />
-      <div className="absolute inset-0 opacity-[0.03] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:50px_50px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(201,165,92,0.18),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.2))]" />
+      <div className="absolute -left-[5%] top-[-8%] h-[40%] w-[26%] rotate-[-33deg] border border-[#C9A55C]/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),rgba(0,0,0,0.22))]" />
+      <div className="absolute -right-[4%] bottom-[-8%] h-[42%] w-[20%] rotate-[30deg] border border-[#C9A55C]/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),rgba(0,0,0,0.22))]" />
 
-      <div className="relative flex h-14 items-center justify-between border-b border-white/10 bg-black/45 px-5 backdrop-blur">
-        <Logo className="h-9 w-auto" />
-
-        <div className="hidden gap-6 text-[10px] uppercase tracking-[0.26em] text-white/50 md:flex">
-          <span>Services</span>
-          <span>Work</span>
+      <div className="relative flex h-14 items-center justify-between border-b border-white/10 bg-black/45 px-5 text-[10px] uppercase tracking-[0.24em] text-white/58 backdrop-blur">
+        <div className="font-light tracking-[0.28em] text-[#F5F0E8]">
+          CAELUS CORE
+        </div>
+        <div className="hidden gap-5 md:flex">
+          <span>Who We Are</span>
+          <span>What We Do</span>
+          <span>Careers</span>
           <span>Contact</span>
         </div>
       </div>
 
-      <div className="relative flex h-[calc(100%-3.5rem)] items-center px-[7%]">
-        <div className="max-w-4xl">
-          <div className="mb-4 w-fit border border-[#C9A55C]/30 bg-[#C9A55C]/10 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-[#C9A55C]">
-            Modernized Presence
+      <div className="relative h-[calc(100%-3.5rem)] px-8 py-8">
+        <div className="max-w-xl">
+          <div className="mb-4 inline-flex border border-[#C9A55C]/30 bg-[#C9A55C]/10 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-[#C9A55C]">
+            Execution Support & Compliance Services
           </div>
-
-          <h3 className="text-[clamp(1.9rem,5vw,5.3rem)] font-light leading-[0.94] tracking-[-0.06em]">
-            Sharper trust. Cleaner contact. Better first impression.
+          <h3 className="text-[clamp(2rem,4vw,4.4rem)] font-light leading-[0.94] tracking-[-0.06em]">
+            Two service lines. One accountable partner.
           </h3>
-
-          <p className="mt-6 max-w-2xl text-sm leading-7 text-white/68 md:text-base md:leading-8">
-            A focused landing page, stronger profile structure, clear inquiry
-            path, and better presentation across every touchpoint.
+          <p className="mt-5 max-w-lg text-sm leading-7 text-white/68">
+            Workforce support to keep operations moving, plus structured audit
+            services built around compliance, efficiency, and reporting.
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-3">
-            <div className="bg-[#C9A55C] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-black">
-              View Services
+          <div className="mt-7 flex gap-3">
+            <div className="bg-[#C9A55C] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-black">
+              Contact us
             </div>
+            <div className="border border-white/15 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
+              View services
+            </div>
+          </div>
+        </div>
 
-            <div className="border border-white/15 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white">
-              See Examples
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          <div className="border border-[#C9A55C]/18 bg-black/30 p-5">
+            <div className="text-[10px] uppercase tracking-[0.28em] text-[#C9A55C]">
+              Service Line 01
+            </div>
+            <div className="mt-3 text-2xl font-light tracking-[-0.03em]">
+              Workforce Supply
+            </div>
+            <p className="mt-3 text-sm leading-7 text-white/60">
+              General labour, forklift operators, warehouse associates, ramp
+              and lifting roles, and other ready-to-deploy support personnel.
+            </p>
+          </div>
+
+          <div className="border border-[#C9A55C]/18 bg-black/30 p-5">
+            <div className="text-[10px] uppercase tracking-[0.28em] text-[#C9A55C]">
+              Service Line 02
+            </div>
+            <div className="mt-3 text-2xl font-light tracking-[-0.03em]">
+              Audits & Inspections
+            </div>
+            <p className="mt-3 text-sm leading-7 text-white/60">
+              ISO 9001 quality audits, ASHRAE Level 1–3 energy audits, and
+              carbon audits structured around compliance and reporting clarity.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function OldBusinessCardPanel() {
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-[#e8ebef]">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.2),rgba(0,0,0,0.06))]" />
+      <div className="relative flex h-full items-center justify-center px-8 py-8">
+        <div className="grid w-full max-w-[960px] gap-5 md:grid-cols-2">
+          <div className="rotate-[-8deg] rounded bg-white p-5 shadow-[0_18px_50px_rgba(0,0,0,0.2)]">
+            <div className="rounded border-2 border-dashed border-[#2d84a6]/35 p-4">
+              <div className="text-xs font-black uppercase tracking-[0.22em] text-[#2d84a6]">
+                CAELUSCORE
+              </div>
+              <div className="mt-2 text-2xl font-black text-[#1e4f66]">
+                ALEX MORGAN
+              </div>
+              <div className="mt-1 text-[11px] font-bold uppercase text-[#5e8192]">
+                Founder / Consultant / Operations / Staffing
+              </div>
+              <div className="mt-4 space-y-2 text-sm font-semibold text-[#436779]">
+                <div>+1 206 555 0198</div>
+                <div>alex.morgan@caeluscore.com</div>
+                <div>www.caeluscore.com</div>
+                <div>Seattle, WA, United States</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="rotate-[7deg] rounded bg-[#cfe1eb] p-5 shadow-[0_18px_50px_rgba(0,0,0,0.22)]">
+            <div className="rounded border-2 border-[#80a3b7] bg-white p-5">
+              <div className="text-[11px] font-black uppercase tracking-[0.24em] text-[#2d84a6]">
+                Caeluscore
+              </div>
+              <div className="mt-4 h-24 rounded border border-[#c1d4df] bg-[#f6fbfd]" />
+              <div className="mt-4 text-xs font-semibold text-[#4e7588]">
+                Engineering | Staffing | Support | Consulting
+              </div>
             </div>
           </div>
         </div>
@@ -300,7 +611,112 @@ function AfterPanel() {
   );
 }
 
-function BeforeAfterSlider() {
+function NewBusinessCardPanel() {
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-[#050505]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(201,165,92,0.16),transparent_20%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.24))]" />
+      <div className="absolute -left-[5%] top-[-8%] h-[42%] w-[20%] rotate-[-33deg] border border-[#C9A55C]/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),rgba(0,0,0,0.22))]" />
+      <div className="absolute -right-[3%] bottom-[-8%] h-[40%] w-[16%] rotate-[28deg] border border-[#C9A55C]/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),rgba(0,0,0,0.22))]" />
+
+      <div className="relative flex h-full items-center justify-center px-8 py-8">
+        <div className="w-full max-w-[900px] overflow-hidden rounded border border-[#C9A55C]/16 bg-black/30 p-4 shadow-[0_25px_70px_rgba(0,0,0,0.45)]">
+          <img
+            src={CAELUS_NEW_CARD}
+            alt="New CaelusCore business card"
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function OldLogoPanel() {
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-[#eceef1]">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(0,0,0,0.05))]" />
+      <div className="relative flex h-full items-center justify-center px-8 py-8">
+        <div className="grid w-full max-w-[950px] gap-5 md:grid-cols-2">
+          <div className="rounded bg-white p-5 shadow-[0_18px_50px_rgba(0,0,0,0.2)]">
+            <div className="mb-4 text-[10px] font-black uppercase tracking-[0.24em] text-[#6b7a88]">
+              Old Concept A
+            </div>
+            <div className="grid min-h-[260px] place-items-center rounded border border-[#d6dde3] bg-[#f9fbfc]">
+              <img
+                src={CAELUS_OLD_LOGO_1}
+                alt="Old CaelusCore logo concept 1"
+                className="max-h-[200px] max-w-[85%] object-contain"
+              />
+            </div>
+          </div>
+
+          <div className="rounded bg-white p-5 shadow-[0_18px_50px_rgba(0,0,0,0.2)]">
+            <div className="mb-4 text-[10px] font-black uppercase tracking-[0.24em] text-[#6b7a88]">
+              Old Concept B
+            </div>
+            <div className="grid min-h-[260px] place-items-center rounded border border-[#d6dde3] bg-[#f9fbfc] p-6">
+              <img
+                src={CAELUS_OLD_LOGO_2}
+                alt="Old CaelusCore logo concept 2"
+                className="max-h-[220px] max-w-[90%] object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function NewLogoPanel() {
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-[#050505]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(201,165,92,0.15),transparent_22%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.2))]" />
+      <div className="absolute -left-[4%] top-[-8%] h-[44%] w-[22%] rotate-[-34deg] border border-[#C9A55C]/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),rgba(0,0,0,0.22))]" />
+      <div className="absolute -right-[4%] bottom-[-8%] h-[42%] w-[18%] rotate-[31deg] border border-[#C9A55C]/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),rgba(0,0,0,0.22))]" />
+
+      <div className="relative flex h-full items-center justify-center px-8 py-8">
+        <div className="grid w-full max-w-[960px] gap-5 md:grid-cols-[0.9fr_1.1fr]">
+          <div className="grid min-h-[320px] place-items-center rounded border border-[#C9A55C]/16 bg-black/35 p-6 shadow-[0_18px_60px_rgba(0,0,0,0.35)]">
+            <img
+              src={CAELUS_NEW_LOGO}
+              alt="New CaelusCore logo"
+              className="max-h-[260px] max-w-[80%] object-contain"
+            />
+          </div>
+
+          <div className="flex items-center">
+            <div className="w-full rounded border border-[#C9A55C]/16 bg-black/28 p-5">
+              <div className="text-[10px] uppercase tracking-[0.3em] text-[#C9A55C]">
+                Updated identity
+              </div>
+              <div className="mt-4 text-3xl font-light tracking-[-0.03em] text-[#F5F0E8]">
+                Cleaner. Stronger. More premium.
+              </div>
+              <div className="mt-4 space-y-3 text-sm leading-7 text-white/65">
+                <p>• Better visual consistency across print and web.</p>
+                <p>• More distinctive mark for stronger recall.</p>
+                <p>• A sharper overall feel that supports trust.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ShowcaseSlider({
+  before,
+  after,
+  beforeNotes,
+  afterNotes,
+}: {
+  before: React.ReactNode;
+  after: React.ReactNode;
+  beforeNotes: NoteItem[];
+  afterNotes: NoteItem[];
+}) {
   const [position, setPosition] = useState(50);
   const [dragging, setDragging] = useState(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
@@ -308,7 +724,6 @@ function BeforeAfterSlider() {
   function updatePosition(clientX: number) {
     const rect = wrapRef.current?.getBoundingClientRect();
     if (!rect) return;
-
     setPosition(
       Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100))
     );
@@ -330,17 +745,23 @@ function BeforeAfterSlider() {
         onPointerCancel={() => setDragging(false)}
         className="relative aspect-[16/11] cursor-ew-resize touch-none select-none overflow-hidden md:aspect-[16/8]"
       >
-        <BeforePanel />
+        <div className="absolute inset-0">
+          {before}
+          <OverlayNotes notes={beforeNotes} tone="before" />
+        </div>
 
         <div
           className="absolute inset-0 overflow-hidden"
           style={{ clipPath: `inset(0 0 0 ${position}%)` }}
         >
-          <AfterPanel />
+          <div className="absolute inset-0">
+            {after}
+            <OverlayNotes notes={afterNotes} tone="after" />
+          </div>
         </div>
 
         <div
-          className="pointer-events-none absolute inset-y-0 z-20"
+          className="pointer-events-none absolute inset-y-0 z-40"
           style={{ left: `${position}%`, transform: "translateX(-50%)" }}
         >
           <div className="relative h-full w-px bg-white/90">
@@ -350,14 +771,44 @@ function BeforeAfterSlider() {
           </div>
         </div>
 
-        <div className="absolute left-4 top-4 z-30 rounded-full border border-black/10 bg-white/80 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-black backdrop-blur">
+        <div className="absolute left-4 top-4 z-40 rounded-full border border-black/10 bg-white/82 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-black backdrop-blur">
           Before
         </div>
 
-        <div className="absolute right-4 top-4 z-30 rounded-full border border-[#C9A55C]/40 bg-black/70 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#C9A55C] backdrop-blur">
+        <div className="absolute right-4 top-4 z-40 rounded-full border border-[#C9A55C]/40 bg-black/72 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#C9A55C] backdrop-blur">
           After
         </div>
       </div>
+    </div>
+  );
+}
+
+function ShowcaseTabs({
+  active,
+  setActive,
+}: {
+  active: ExampleId;
+  setActive: (id: ExampleId) => void;
+}) {
+  return (
+    <div className="mb-8 flex flex-wrap gap-3">
+      {showcaseItems.map((item) => {
+        const isActive = active === item.id;
+        return (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => setActive(item.id)}
+            className={`border px-4 py-3 text-[11px] uppercase tracking-[0.24em] transition duration-300 ${
+              isActive
+                ? "border-[#C9A55C] bg-[#C9A55C] text-black"
+                : "border-white/10 bg-white/[0.03] text-white/65 hover:border-[#C9A55C]/45 hover:text-[#F5F0E8]"
+            }`}
+          >
+            {item.tab}
+          </button>
+        );
+      })}
     </div>
   );
 }
@@ -549,6 +1000,8 @@ function FooterIconLink({
 }
 
 export default function Home() {
+  const [activeExample, setActiveExample] = useState<ExampleId>("website");
+
   useEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
@@ -567,6 +1020,36 @@ export default function Home() {
       window.removeEventListener("beforeunload", resetScroll);
     };
   }, []);
+
+  const activeShowcase = useMemo(
+    () => showcaseItems.find((item) => item.id === activeExample)!,
+    [activeExample]
+  );
+
+  const showcasePanels = useMemo(() => {
+    switch (activeExample) {
+      case "website":
+        return {
+          before: <OldWebsitePanel />,
+          after: <NewWebsitePanel />,
+        };
+      case "cards":
+        return {
+          before: <OldBusinessCardPanel />,
+          after: <NewBusinessCardPanel />,
+        };
+      case "logos":
+        return {
+          before: <OldLogoPanel />,
+          after: <NewLogoPanel />,
+        };
+      default:
+        return {
+          before: <OldWebsitePanel />,
+          after: <NewWebsitePanel />,
+        };
+    }
+  }, [activeExample]);
 
   return (
     <main
@@ -688,12 +1171,26 @@ export default function Home() {
           <SectionLabel>Sample Showcase</SectionLabel>
 
           <h2 className="max-w-4xl text-[clamp(2rem,4.6vw,4.4rem)] font-light leading-[0.96] tracking-[-0.06em]">
-            From unclear to premium.
+            Three examples. Three transformations.
           </h2>
 
-          <div className="mt-10">
-            <BeforeAfterSlider />
+          <div className="mt-4 text-[11px] uppercase tracking-[0.26em] text-[#C9A55C]">
+            {activeShowcase.title}
           </div>
+
+          <div className="mt-8">
+            <ShowcaseTabs
+              active={activeExample}
+              setActive={setActiveExample}
+            />
+          </div>
+
+          <ShowcaseSlider
+            before={showcasePanels.before}
+            after={showcasePanels.after}
+            beforeNotes={activeShowcase.beforeNotes}
+            afterNotes={activeShowcase.afterNotes}
+          />
         </div>
       </section>
 
