@@ -90,7 +90,7 @@ function LinkButton({
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
-      className="group flex items-center justify-between gap-5 border border-white/10 bg-white/[0.035] px-5 py-5 text-left transition duration-500 hover:-translate-y-1 hover:border-[#C9A55C]/60 hover:bg-[#C9A55C]/[0.06] hover:shadow-[0_0_45px_rgba(201,165,92,0.12)]"
+      className="group flex items-center justify-between gap-5 border border-[#C9A55C]/15 bg-white/[0.03] px-5 py-5 text-left transition duration-500 hover:-translate-y-1 hover:border-[#C9A55C]/60 hover:bg-[#C9A55C]/[0.06] hover:shadow-[0_0_45px_rgba(201,165,92,0.12)]"
     >
       <span className="flex items-center gap-4">
         <span className="grid h-12 w-12 shrink-0 place-items-center border border-[#C9A55C]/35 bg-black/40 text-[#C9A55C]">
@@ -117,28 +117,37 @@ export default function ConnectPage() {
       window.history.scrollRestoration = "manual";
     }
 
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto",
-    });
+    const resetScroll = () => {
+      window.scrollTo(0, 0);
+    };
+
+    resetScroll();
+    const timer = window.setTimeout(resetScroll, 0);
+    window.addEventListener("beforeunload", resetScroll);
+
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("beforeunload", resetScroll);
+    };
   }, []);
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#050505] px-4 py-8 text-[#F5F0E8] sm:px-6 md:px-8">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-[-16rem] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-[#C9A55C]/12 blur-[130px]" />
-        <div className="absolute bottom-[-10rem] right-[-10rem] h-[26rem] w-[26rem] rounded-full bg-[#C9A55C]/10 blur-[110px]" />
-        <div className="absolute inset-0 opacity-[0.045] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:52px_52px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-10%,rgba(201,165,92,0.12),transparent_30%),linear-gradient(180deg,#040404,#050505)]" />
+        <div className="absolute -left-[10%] top-[-8%] h-[28rem] w-[18rem] rotate-[-38deg] border border-[#C9A55C]/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(0,0,0,0.22))]" />
+        <div className="absolute -right-[8%] bottom-[-8%] h-[32rem] w-[18rem] rotate-[34deg] border border-[#C9A55C]/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(0,0,0,0.25))]" />
+        <div className="absolute left-[-6rem] top-[12rem] h-[24rem] w-[24rem] rounded-full bg-[#C9A55C]/[0.05] blur-[120px]" />
+        <div className="absolute right-[-8rem] top-[35%] h-[20rem] w-[20rem] rounded-full bg-[#C9A55C]/[0.06] blur-[110px]" />
       </div>
 
       <section className="relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] max-w-xl flex-col justify-center">
-        <div className="border border-white/10 bg-black/35 p-6 shadow-[0_0_80px_rgba(0,0,0,0.45)] backdrop-blur sm:p-8">
+        <div className="border border-[#C9A55C]/15 bg-black/40 p-6 shadow-[0_0_80px_rgba(0,0,0,0.45)] backdrop-blur sm:p-8">
           <div className="flex justify-center">
             <img
               src={LOGO_SRC}
               alt="AURIC Studio"
-              className="h-auto w-40 object-contain"
+              className="h-auto w-36 object-contain"
             />
           </div>
 
@@ -147,7 +156,7 @@ export default function ConnectPage() {
               Connect With AURIC
             </div>
 
-            <h1 className="text-[clamp(2.2rem,9vw,4.6rem)] font-light leading-[0.9] tracking-[-0.07em]">
+            <h1 className="text-[clamp(2rem,8vw,4rem)] font-light leading-[0.92] tracking-[-0.07em]">
               Choose where to go.
             </h1>
           </div>
