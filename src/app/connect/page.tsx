@@ -1,10 +1,15 @@
 "use client";
 
-import React, { SVGProps } from "react";
+import React, { SVGProps, useEffect } from "react";
 
 const LOGO_SRC = "/logo.png";
 
-type IconName = "arrow" | "instagram" | "mail" | "website";
+const EMAIL = "hello@theauricstudios.com";
+const WEBSITE_URL = "https://theauricstudios.com";
+const INSTAGRAM_URL = "https://www.instagram.com/auricstudio.co/";
+const LINKEDIN_URL = "https://www.linkedin.com/company/auricstudios";
+
+type IconName = "arrow" | "instagram" | "mail" | "website" | "linkedin";
 
 function Icon({
   name,
@@ -57,21 +62,26 @@ function Icon({
         <path d="M12 3a15 15 0 0 0 0 18" />
       </>
     ),
+    linkedin: (
+      <>
+        <path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-12h4v2" />
+        <rect x="2" y="9" width="4" height="11" />
+        <circle cx="4" cy="4" r="2" />
+      </>
+    ),
   };
 
   return <svg {...common}>{paths[name]}</svg>;
 }
 
-function LinkCard({
+function LinkButton({
   href,
   label,
-  description,
   icon,
   external = false,
 }: {
   href: string;
   label: string;
-  description: string;
   icon: IconName;
   external?: boolean;
 }) {
@@ -80,23 +90,17 @@ function LinkCard({
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
-      className="group flex items-center justify-between gap-5 border border-white/10 bg-white/[0.035] p-5 text-left transition duration-500 hover:-translate-y-1 hover:border-[#C9A55C]/60 hover:bg-[#C9A55C]/[0.06] hover:shadow-[0_0_45px_rgba(201,165,92,0.12)]"
+      className="group flex items-center justify-between gap-5 border border-white/10 bg-white/[0.035] px-5 py-5 text-left transition duration-500 hover:-translate-y-1 hover:border-[#C9A55C]/60 hover:bg-[#C9A55C]/[0.06] hover:shadow-[0_0_45px_rgba(201,165,92,0.12)]"
     >
-      <div className="flex items-center gap-4">
+      <span className="flex items-center gap-4">
         <span className="grid h-12 w-12 shrink-0 place-items-center border border-[#C9A55C]/35 bg-black/40 text-[#C9A55C]">
           <Icon name={icon} size={20} />
         </span>
 
-        <span>
-          <span className="block text-base font-medium tracking-[-0.01em] text-[#F5F0E8]">
-            {label}
-          </span>
-
-          <span className="mt-1 block text-sm leading-6 text-white/50">
-            {description}
-          </span>
+        <span className="text-base font-medium uppercase tracking-[0.18em] text-[#F5F0E8]">
+          {label}
         </span>
-      </div>
+      </span>
 
       <Icon
         name="arrow"
@@ -108,6 +112,18 @@ function LinkCard({
 }
 
 export default function ConnectPage() {
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }, []);
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#050505] px-4 py-8 text-[#F5F0E8] sm:px-6 md:px-8">
       <div className="pointer-events-none absolute inset-0">
@@ -122,7 +138,7 @@ export default function ConnectPage() {
             <img
               src={LOGO_SRC}
               alt="AURIC Studio"
-              className="h-auto w-32 object-contain"
+              className="h-auto w-40 object-contain"
             />
           </div>
 
@@ -132,34 +148,31 @@ export default function ConnectPage() {
             </div>
 
             <h1 className="text-[clamp(2.2rem,9vw,4.6rem)] font-light leading-[0.9] tracking-[-0.07em]">
-              Choose where you want to go.
+              Choose where to go.
             </h1>
-
-            <p className="mx-auto mt-5 max-w-md text-sm leading-7 text-white/55">
-              View our website, send us an email, or visit our Instagram.
-            </p>
           </div>
 
           <div className="mt-8 grid gap-4">
-            <LinkCard
-              href="/"
+            <LinkButton
+              href={WEBSITE_URL}
               icon="website"
-              label="Visit Website"
-              description="See AURIC services, packages, showcase, and contact form."
+              label="Website"
+              external
             />
 
-            <LinkCard
-              href="mailto:hello@auricstudio.co"
-              icon="mail"
-              label="Email Us"
-              description="Send your business name, website, Instagram, or question."
-            />
+            <LinkButton href={`mailto:${EMAIL}`} icon="mail" label="Email" />
 
-            <LinkCard
-              href="https://instagram.com/auricstudio.co"
+            <LinkButton
+              href={INSTAGRAM_URL}
               icon="instagram"
               label="Instagram"
-              description="View posts, examples, updates, and message us directly."
+              external
+            />
+
+            <LinkButton
+              href={LINKEDIN_URL}
+              icon="linkedin"
+              label="LinkedIn"
               external
             />
           </div>
