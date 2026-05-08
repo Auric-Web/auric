@@ -164,7 +164,7 @@ function scrollToId(id: string) {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-5 text-[11px] font-medium uppercase tracking-[0.34em] text-[#C9A55C]">
+    <div className="mb-4 text-[10px] font-medium uppercase tracking-[0.34em] text-[#C9A55C]">
       {children}
     </div>
   );
@@ -172,22 +172,23 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 function PackageCard({ item }: { item: PackageItem }) {
   return (
-    <article className="group relative overflow-hidden border border-white/10 bg-[#0B0B0B] p-6 transition duration-500 hover:-translate-y-1 hover:border-[#C9A55C]/60 hover:bg-[#11100B] md:p-7">
-      <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[#C9A55C]/10 blur-3xl transition group-hover:bg-[#C9A55C]/20" />
+    <article className="group relative overflow-hidden border border-[#C9A55C]/15 bg-black/45 p-5 transition duration-500 hover:-translate-y-1 hover:border-[#C9A55C]/50 hover:bg-[#0c0c0c] md:p-6">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),rgba(0,0,0,0.2))]" />
+      <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-[#C9A55C]/10 blur-3xl" />
 
-      <div className="relative text-[10px] uppercase tracking-[0.3em] text-[#C9A55C]">
+      <div className="relative text-[10px] uppercase tracking-[0.28em] text-[#C9A55C]">
         {item.label}
       </div>
 
-      <h3 className="relative mt-5 text-3xl font-light tracking-[-0.04em] text-[#F5F0E8]">
+      <h3 className="relative mt-4 text-[1.9rem] font-light tracking-[-0.04em] text-[#F5F0E8]">
         {item.title}
       </h3>
 
-      <p className="relative mt-5 text-sm leading-7 text-[#A7A7A7]">
+      <p className="relative mt-4 text-sm leading-7 text-[#A7A7A7]">
         {item.description}
       </p>
 
-      <div className="relative my-7 h-px bg-white/10" />
+      <div className="relative my-6 h-px bg-gradient-to-r from-[#C9A55C]/40 via-white/10 to-transparent" />
 
       <ul className="relative space-y-3">
         {item.items.map((service) => (
@@ -209,45 +210,45 @@ function PackageCard({ item }: { item: PackageItem }) {
 function BeforePanel() {
   return (
     <div className="absolute inset-0 overflow-hidden bg-[#f0f0f0] text-[#17405a]">
-      <div className="flex h-16 items-center justify-between bg-[#145274] px-6 text-xs font-bold uppercase tracking-wide text-white">
+      <div className="flex h-14 items-center justify-between bg-[#145274] px-5 text-[11px] font-bold uppercase tracking-wide text-white">
         <img
           src={BEFORE_LOGO_SRC}
           alt="Before logo"
-          className="h-10 w-10 object-contain"
+          className="h-8 w-8 object-contain"
         />
 
-        <div className="hidden gap-6 md:flex">
+        <div className="hidden gap-5 md:flex">
           <span>Home</span>
           <span>Services</span>
           <span>Contact</span>
         </div>
 
-        <div className="rounded bg-white px-4 py-2 text-[#145274]">
+        <div className="rounded bg-white px-3 py-2 text-[#145274]">
           Click Here
         </div>
       </div>
 
-      <div className="grid h-[calc(100%-4rem)] place-items-center px-8 text-center">
+      <div className="grid h-[calc(100%-3.5rem)] place-items-center px-8 text-center">
         <div>
-          <div className="mx-auto mb-6 w-fit border-4 border-dashed border-[#145274]/35 px-5 py-3 text-xs font-black uppercase">
+          <div className="mx-auto mb-5 w-fit border-4 border-dashed border-[#145274]/35 px-4 py-2 text-[11px] font-black uppercase">
             Unclear First Impression
           </div>
 
-          <h3 className="text-[clamp(2rem,7vw,5.6rem)] font-black leading-none tracking-[-0.05em]">
+          <h3 className="text-[clamp(1.7rem,5vw,4.8rem)] font-black leading-none tracking-[-0.05em]">
             WELCOME TO OUR WEBSITE
           </h3>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg font-bold text-[#2b637e]">
+          <p className="mx-auto mt-5 max-w-2xl text-base font-bold text-[#2b637e]">
             Generic headline. Weak trust. No clear contact path. No reason to
             inquire.
           </p>
 
-          <div className="mt-8 flex justify-center gap-3">
-            <div className="border-2 border-[#145274] px-5 py-3 text-xs font-black uppercase">
+          <div className="mt-7 flex justify-center gap-3">
+            <div className="border-2 border-[#145274] px-4 py-3 text-[11px] font-black uppercase">
               Learn More
             </div>
 
-            <div className="bg-[#145274] px-5 py-3 text-xs font-black uppercase text-white">
+            <div className="bg-[#145274] px-4 py-3 text-[11px] font-black uppercase text-white">
               Contact Us
             </div>
           </div>
@@ -260,40 +261,43 @@ function BeforePanel() {
 function AfterPanel() {
   return (
     <div className="absolute inset-0 overflow-hidden bg-[#050505] text-[#F5F0E8]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(201,165,92,0.22),transparent_32%),radial-gradient(circle_at_80%_70%,rgba(201,165,92,0.12),transparent_30%),linear-gradient(135deg,rgba(255,255,255,0.08),rgba(0,0,0,0.96))]" />
-      <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:44px_44px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(201,165,92,0.18),transparent_26%),radial-gradient(circle_at_84%_18%,rgba(201,165,92,0.12),transparent_18%),linear-gradient(135deg,rgba(255,255,255,0.05),rgba(0,0,0,0.98))]" />
+      <div className="absolute inset-y-0 right-[18%] w-px rotate-[18deg] bg-gradient-to-b from-transparent via-[#C9A55C]/35 to-transparent" />
+      <div className="absolute left-[-8%] top-[-6%] h-[40%] w-[32%] rotate-[-35deg] border border-[#C9A55C]/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.2))]" />
+      <div className="absolute right-[-6%] bottom-[-10%] h-[42%] w-[26%] rotate-[34deg] border border-[#C9A55C]/15 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.25))]" />
+      <div className="absolute inset-0 opacity-[0.03] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:50px_50px]" />
 
-      <div className="relative flex h-16 items-center justify-between border-b border-white/10 bg-black/55 px-6 backdrop-blur">
-        <Logo className="h-10 w-auto" />
+      <div className="relative flex h-14 items-center justify-between border-b border-white/10 bg-black/45 px-5 backdrop-blur">
+        <Logo className="h-9 w-auto" />
 
-        <div className="hidden gap-7 text-[10px] uppercase tracking-[0.28em] text-white/55 md:flex">
+        <div className="hidden gap-6 text-[10px] uppercase tracking-[0.26em] text-white/50 md:flex">
           <span>Services</span>
           <span>Work</span>
           <span>Contact</span>
         </div>
       </div>
 
-      <div className="relative flex h-[calc(100%-4rem)] items-center px-[7%]">
+      <div className="relative flex h-[calc(100%-3.5rem)] items-center px-[7%]">
         <div className="max-w-4xl">
-          <div className="mb-5 w-fit border border-[#C9A55C]/30 bg-[#C9A55C]/10 px-4 py-2 text-[10px] uppercase tracking-[0.32em] text-[#C9A55C]">
+          <div className="mb-4 w-fit border border-[#C9A55C]/30 bg-[#C9A55C]/10 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-[#C9A55C]">
             Modernized Presence
           </div>
 
-          <h3 className="text-[clamp(2.3rem,7vw,6.5rem)] font-light leading-[0.92] tracking-[-0.07em]">
+          <h3 className="text-[clamp(1.9rem,5vw,5.3rem)] font-light leading-[0.94] tracking-[-0.06em]">
             Sharper trust. Cleaner contact. Better first impression.
           </h3>
 
-          <p className="mt-7 max-w-2xl text-base leading-8 text-white/68">
+          <p className="mt-6 max-w-2xl text-sm leading-7 text-white/68 md:text-base md:leading-8">
             A focused landing page, stronger profile structure, clear inquiry
             path, and better presentation across every touchpoint.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <div className="bg-[#C9A55C] px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-black">
+          <div className="mt-7 flex flex-wrap gap-3">
+            <div className="bg-[#C9A55C] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-black">
               View Services
             </div>
 
-            <div className="border border-white/15 px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white">
+            <div className="border border-white/15 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white">
               See Examples
             </div>
           </div>
@@ -324,7 +328,7 @@ function BeforeAfterSlider() {
   }
 
   return (
-    <div className="overflow-hidden border border-white/10 bg-[#0A0A0A] shadow-[0_0_70px_rgba(0,0,0,0.45)]">
+    <div className="overflow-hidden border border-[#C9A55C]/15 bg-[#0A0A0A] shadow-[0_0_70px_rgba(0,0,0,0.45)]">
       <div
         ref={wrapRef}
         onPointerDown={pointerDown}
@@ -346,8 +350,8 @@ function BeforeAfterSlider() {
           className="pointer-events-none absolute inset-y-0 z-20"
           style={{ left: `${position}%`, transform: "translateX(-50%)" }}
         >
-          <div className="relative h-full w-px bg-white">
-            <div className="absolute left-1/2 top-1/2 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[#C9A55C] bg-black text-[#C9A55C] shadow-[0_0_35px_rgba(201,165,92,0.35)]">
+          <div className="relative h-full w-px bg-white/90">
+            <div className="absolute left-1/2 top-1/2 grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[#C9A55C] bg-black text-[#C9A55C] shadow-[0_0_35px_rgba(201,165,92,0.35)]">
               ↔
             </div>
           </div>
@@ -402,14 +406,14 @@ function ContactForm() {
   }
 
   const inputClass =
-    "w-full border border-white/10 bg-black/40 px-4 py-4 text-sm text-[#F5F0E8] outline-none transition placeholder:text-white/35 focus:border-[#C9A55C]/70";
+    "w-full border border-white/10 bg-black/40 px-4 py-3.5 text-sm text-[#F5F0E8] outline-none transition placeholder:text-white/35 focus:border-[#C9A55C]/70";
   const labelClass =
     "mb-2 block text-[10px] uppercase tracking-[0.24em] text-white/40";
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="border border-white/10 bg-[#0B0B0B] p-5 sm:p-7 md:p-8"
+      className="border border-[#C9A55C]/15 bg-[#0B0B0B] p-5 sm:p-6 md:p-7"
     >
       <input
         name="website"
@@ -420,7 +424,7 @@ function ContactForm() {
         aria-hidden="true"
       />
 
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2">
         <div>
           <label className={labelClass}>Name</label>
           <input
@@ -441,7 +445,7 @@ function ContactForm() {
         </div>
       </div>
 
-      <div className="mt-5 grid gap-5 md:grid-cols-2">
+      <div className="mt-4 grid gap-4 md:grid-cols-2">
         <div>
           <label className={labelClass}>Email</label>
           <input
@@ -463,11 +467,11 @@ function ContactForm() {
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-4">
         <label className={labelClass}>Service</label>
         <select
           name="service"
-          className="w-full border border-white/10 bg-black/40 px-4 py-4 text-sm text-[#B9B3AA] outline-none transition focus:border-[#C9A55C]/70"
+          className="w-full border border-white/10 bg-black/40 px-4 py-3.5 text-sm text-[#B9B3AA] outline-none transition focus:border-[#C9A55C]/70"
         >
           <option>Presence Review</option>
           <option>Online Cleanup</option>
@@ -476,20 +480,20 @@ function ContactForm() {
         </select>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-4">
         <label className={labelClass}>Message</label>
         <textarea
           name="message"
           required
           placeholder="Tell us what you want reviewed, cleaned up, or built."
-          className={`${inputClass} min-h-36 resize-none`}
+          className={`${inputClass} min-h-32 resize-none`}
         />
       </div>
 
       <button
         type="submit"
         disabled={status === "loading"}
-        className="mt-6 inline-flex w-full items-center justify-center gap-3 border border-[#C9A55C] bg-[#C9A55C] px-6 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-black transition duration-500 hover:bg-[#F3D486] hover:shadow-[0_0_40px_rgba(201,165,92,0.22)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 md:w-auto"
+        className="mt-5 inline-flex w-full items-center justify-center gap-3 border border-[#C9A55C] bg-[#C9A55C] px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition duration-500 hover:bg-[#F3D486] hover:shadow-[0_0_40px_rgba(201,165,92,0.22)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 md:w-auto"
       >
         {status === "loading" ? "Sending..." : "Request Review"}
         <Icon name="arrow" size={16} />
@@ -508,17 +512,43 @@ function ContactForm() {
   );
 }
 
+function NavPill({
+  label,
+  target,
+}: {
+  label: string;
+  target: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => scrollToId(target)}
+      className="group relative overflow-hidden border border-white/10 bg-white/[0.03] px-4 py-2.5 text-[11px] uppercase tracking-[0.22em] text-white/70 transition duration-300 hover:border-[#C9A55C]/45 hover:text-[#F5F0E8]"
+    >
+      <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[#C9A55C] transition duration-300 group-hover:scale-x-100" />
+      <span className="relative">{label}</span>
+    </button>
+  );
+}
+
 export default function Home() {
   useEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
 
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto",
-    });
+    const resetScroll = () => {
+      window.scrollTo(0, 0);
+    };
+
+    resetScroll();
+    const timer = window.setTimeout(resetScroll, 0);
+    window.addEventListener("beforeunload", resetScroll);
+
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("beforeunload", resetScroll);
+    };
   }, []);
 
   return (
@@ -527,67 +557,70 @@ export default function Home() {
       className="min-h-screen overflow-x-hidden bg-[#050505] text-[#F5F0E8]"
     >
       <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute left-1/2 top-[-22rem] h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-[#C9A55C]/10 blur-[150px]" />
-        <div className="absolute bottom-[12%] right-[-12rem] h-[28rem] w-[28rem] rounded-full bg-[#8F7138]/10 blur-[120px]" />
-        <div className="absolute inset-0 opacity-[0.035] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:68px_68px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-10%,rgba(201,165,92,0.11),transparent_30%),linear-gradient(180deg,#040404,#050505)]" />
+        <div className="absolute -left-[10%] top-[-8%] h-[28rem] w-[18rem] rotate-[-38deg] border border-[#C9A55C]/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(0,0,0,0.22))]" />
+        <div className="absolute -right-[8%] bottom-[-8%] h-[32rem] w-[18rem] rotate-[34deg] border border-[#C9A55C]/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(0,0,0,0.25))]" />
+        <div className="absolute left-[-6rem] top-[12rem] h-[24rem] w-[24rem] rounded-full bg-[#C9A55C]/[0.05] blur-[120px]" />
+        <div className="absolute right-[-8rem] top-[35%] h-[20rem] w-[20rem] rounded-full bg-[#C9A55C]/[0.06] blur-[110px]" />
+        <div className="absolute inset-0 opacity-[0.02] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:72px_72px]" />
+        <div className="absolute left-[6%] top-[14%] h-px w-[20%] rotate-[-38deg] bg-gradient-to-r from-transparent via-[#C9A55C]/80 to-transparent" />
+        <div className="absolute right-[6%] bottom-[18%] h-px w-[20%] rotate-[34deg] bg-gradient-to-r from-transparent via-[#C9A55C]/80 to-transparent" />
       </div>
 
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 md:px-8">
-          <a href="#top" className="group flex items-center">
-            <Logo className="h-14 w-auto max-w-[185px] transition duration-500 group-hover:drop-shadow-[0_0_18px_rgba(201,165,92,0.45)]" />
-          </a>
+      <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/55 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 md:px-8">
+          <button
+            type="button"
+            onClick={() => scrollToId("#top")}
+            className="group flex items-center"
+          >
+            <Logo className="h-16 w-auto max-w-[215px] transition duration-500 group-hover:drop-shadow-[0_0_18px_rgba(201,165,92,0.45)]" />
+          </button>
 
-          <nav className="hidden items-center gap-9 text-[13px] uppercase tracking-[0.26em] text-white/60 md:flex">
-            <a href="#packages" className="transition hover:text-[#C9A55C]">
-              Packages
-            </a>
-
-            <a href="#showcase" className="transition hover:text-[#C9A55C]">
-              Showcase
-            </a>
-
-            <a href="#contact" className="transition hover:text-[#C9A55C]">
-              Contact
-            </a>
+          <nav className="hidden items-center gap-3 md:flex">
+            <NavPill label="Packages" target="#packages" />
+            <NavPill label="Showcase" target="#showcase" />
+            <NavPill label="Contact" target="#contact" />
           </nav>
 
-          <a
-            href="#contact"
-            className="hidden border border-[#C9A55C]/40 px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-[#C9A55C] transition hover:bg-[#C9A55C] hover:text-black md:inline-flex"
+          <button
+            type="button"
+            onClick={() => scrollToId("#contact")}
+            className="hidden border border-[#C9A55C]/35 bg-[#C9A55C]/[0.04] px-4 py-2.5 text-[10px] uppercase tracking-[0.24em] text-[#C9A55C] transition duration-300 hover:bg-[#C9A55C] hover:text-black md:inline-flex"
           >
             Request Review
-          </a>
+          </button>
         </div>
       </header>
 
       <section className="relative z-10 flex min-h-screen items-center px-4 pt-24 sm:px-6 md:px-8">
         <div className="mx-auto w-full max-w-7xl">
-          <div className="relative overflow-hidden border border-white/10 bg-[#070707]/70 px-5 py-16 shadow-[0_0_80px_rgba(0,0,0,0.35)] sm:px-8 md:px-12 lg:px-16 lg:py-24">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(201,165,92,0.14),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.05),rgba(0,0,0,0.96))]" />
-            <div className="absolute -right-28 -top-28 h-72 w-72 rounded-full border border-[#C9A55C]/20" />
-            <div className="absolute -bottom-36 right-20 h-96 w-96 rounded-full bg-[#C9A55C]/5 blur-3xl" />
+          <div className="relative overflow-hidden border border-[#C9A55C]/12 bg-black/45 px-5 py-14 shadow-[0_0_80px_rgba(0,0,0,0.35)] sm:px-8 md:px-10 lg:px-14 lg:py-16">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_24%,rgba(201,165,92,0.10),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.2))]" />
+            <div className="absolute -left-[4%] top-[-6%] h-[48%] w-[22%] rotate-[-36deg] border border-[#C9A55C]/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),rgba(0,0,0,0.2))]" />
+            <div className="absolute -right-[4%] bottom-[-8%] h-[52%] w-[18%] rotate-[32deg] border border-[#C9A55C]/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),rgba(0,0,0,0.22))]" />
+            <div className="absolute right-[13%] top-[8%] h-px w-[18%] bg-gradient-to-r from-transparent via-[#C9A55C] to-transparent" />
 
             <div className="relative">
-              <div className="mb-8 inline-flex items-center gap-3 border border-[#C9A55C]/25 bg-[#C9A55C]/5 px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-[#C9A55C]">
-                <Icon name="spark" size={14} />
+              <div className="mb-7 inline-flex items-center gap-3 border border-[#C9A55C]/25 bg-[#C9A55C]/5 px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-[#C9A55C]">
+                <Icon name="spark" size={13} />
                 Online Presence Setup & Cleanup
               </div>
 
-              <h1 className="max-w-6xl text-[clamp(3.3rem,8.8vw,8.5rem)] font-light leading-[0.9] tracking-[-0.075em] text-[#F5F0E8]">
-                Make the first impression match the business.
+              <h1 className="max-w-5xl text-[clamp(2.7rem,6vw,6.3rem)] font-light leading-[0.94] tracking-[-0.07em] text-[#F5F0E8]">
+                Your business should look as good online as it does in real
+                life.
               </h1>
 
-              <p className="mt-8 max-w-3xl text-base leading-8 text-[#B9B3AA] md:text-lg">
-                AURIC Studio helps local businesses clean up their website,
-                Instagram, Google profile, QR links, and contact flow so they
-                look more legitimate and easier to reach.
+              <p className="mt-6 max-w-2xl text-sm leading-7 text-[#CFC7BA] md:text-base md:leading-8">
+                Website. Social profiles. QR codes. Forms. Ads. Dashboards.
               </p>
 
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href="#packages"
-                  className="group inline-flex items-center justify-center gap-3 border border-[#C9A55C] bg-[#C9A55C] px-6 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-black transition duration-500 hover:bg-[#F3D486] hover:shadow-[0_0_35px_rgba(201,165,92,0.25)]"
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <button
+                  type="button"
+                  onClick={() => scrollToId("#packages")}
+                  className="group inline-flex items-center justify-center gap-3 border border-[#C9A55C] bg-[#C9A55C] px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-black transition duration-500 hover:bg-[#F3D486] hover:shadow-[0_0_35px_rgba(201,165,92,0.25)]"
                 >
                   Our Services
                   <Icon
@@ -595,44 +628,21 @@ export default function Home() {
                     size={16}
                     className="transition group-hover:translate-x-1"
                   />
-                </a>
+                </button>
 
-                <a
-                  href="#showcase"
-                  className="inline-flex items-center justify-center border border-white/15 px-6 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-[#F5F0E8] transition duration-500 hover:border-[#C9A55C]/60 hover:text-[#C9A55C]"
+                <button
+                  type="button"
+                  onClick={() => scrollToId("#showcase")}
+                  className="inline-flex items-center justify-center border border-white/15 bg-white/[0.03] px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#F5F0E8] transition duration-500 hover:border-[#C9A55C]/60 hover:text-[#C9A55C]"
                 >
                   See Examples
-                </a>
+                </button>
               </div>
 
-              <div className="mt-14 grid gap-4 border-t border-white/10 pt-8 md:grid-cols-3">
-                {[
-                  [
-                    "Website",
-                    "Cleaner structure, stronger trust, clearer calls to action.",
-                  ],
-                  [
-                    "Profiles",
-                    "Instagram and Google pages that look active, clear, and credible.",
-                  ],
-                  [
-                    "Contact Flow",
-                    "QR links, forms, email paths, and review systems that reduce friction.",
-                  ],
-                ].map(([title, text]) => (
-                  <div
-                    key={title}
-                    className="border border-white/10 bg-black/25 p-5"
-                  >
-                    <h3 className="text-lg font-light tracking-[-0.02em] text-[#F5F0E8]">
-                      {title}
-                    </h3>
-
-                    <p className="mt-3 text-sm leading-7 text-white/50">
-                      {text}
-                    </p>
-                  </div>
-                ))}
+              <div className="mt-10 border-t border-[#C9A55C]/20 pt-6">
+                <div className="text-[11px] uppercase tracking-[0.28em] text-[#C9A55C]">
+                  Clean presence. Clear flow. Better inquiries.
+                </div>
               </div>
             </div>
           </div>
@@ -641,26 +651,16 @@ export default function Home() {
 
       <section
         id="packages"
-        className="relative z-10 border-y border-white/10 bg-[#070707] px-4 py-20 sm:px-6 md:px-8 md:py-24"
+        className="relative z-10 border-y border-white/10 bg-[#060606] px-4 py-16 sm:px-6 md:px-8 md:py-20"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <div>
-              <SectionLabel>Service Packages</SectionLabel>
+          <SectionLabel>Service Packages</SectionLabel>
 
-              <h2 className="text-[clamp(2.3rem,5.4vw,5.2rem)] font-light leading-[0.94] tracking-[-0.06em]">
-                Start with the review. Then fix what matters.
-              </h2>
-            </div>
+          <h2 className="max-w-4xl text-[clamp(2rem,4.6vw,4.4rem)] font-light leading-[0.96] tracking-[-0.06em]">
+            Start clean. Look professional from day one.
+          </h2>
 
-            <p className="max-w-3xl text-base leading-8 text-[#A7A7A7]">
-              A clean path for businesses that need a stronger online presence
-              without overcomplicated agency retainers or vague marketing
-              promises.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          <div className="mt-10 grid gap-5 lg:grid-cols-3">
             {packages.map((item) => (
               <PackageCard key={item.title} item={item} />
             ))}
@@ -670,26 +670,16 @@ export default function Home() {
 
       <section
         id="showcase"
-        className="relative z-10 px-4 py-20 sm:px-6 md:px-8 md:py-24"
+        className="relative z-10 px-4 py-16 sm:px-6 md:px-8 md:py-20"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <div>
-              <SectionLabel>Sample Showcase</SectionLabel>
+          <SectionLabel>Sample Showcase</SectionLabel>
 
-              <h2 className="text-[clamp(2.3rem,5.4vw,5.2rem)] font-light leading-[0.94] tracking-[-0.06em]">
-                From unclear to premium.
-              </h2>
-            </div>
+          <h2 className="max-w-4xl text-[clamp(2rem,4.6vw,4.4rem)] font-light leading-[0.96] tracking-[-0.06em]">
+            From unclear to premium.
+          </h2>
 
-            <p className="max-w-3xl text-base leading-8 text-[#A7A7A7]">
-              A visual comparison of how a weak online presence can be reshaped
-              into a cleaner, sharper, and easier-to-contact customer
-              experience.
-            </p>
-          </div>
-
-          <div className="mt-12">
+          <div className="mt-10">
             <BeforeAfterSlider />
           </div>
         </div>
@@ -697,23 +687,17 @@ export default function Home() {
 
       <section
         id="contact"
-        className="relative z-10 border-t border-white/10 bg-[#070707] px-4 py-20 sm:px-6 md:px-8 md:py-24"
+        className="relative z-10 border-t border-white/10 bg-[#060606] px-4 py-16 sm:px-6 md:px-8 md:py-20"
       >
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <SectionLabel>Contact</SectionLabel>
 
-            <h2 className="text-[clamp(2.3rem,5.4vw,5.2rem)] font-light leading-[0.94] tracking-[-0.06em]">
+            <h2 className="text-[clamp(2rem,4.6vw,4.4rem)] font-light leading-[0.96] tracking-[-0.06em]">
               Request a presence review.
             </h2>
 
-            <p className="mt-6 max-w-xl text-base leading-8 text-[#A7A7A7]">
-              Send the business name, website, Instagram, or Google profile.
-              AURIC will review the current setup and recommend what should be
-              cleaned up first.
-            </p>
-
-            <div className="mt-8 space-y-4 text-sm text-[#D7D0C5]">
+            <div className="mt-7 space-y-4 text-sm text-[#D7D0C5]">
               <a
                 href={`mailto:${EMAIL}`}
                 className="flex items-center gap-3 transition hover:text-[#C9A55C]"
@@ -747,6 +731,18 @@ export default function Home() {
                 </span>
                 LinkedIn
               </a>
+
+              <a
+                href={WEBSITE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 transition hover:text-[#C9A55C]"
+              >
+                <span className="grid h-10 w-10 place-items-center border border-white/10 bg-black/30 text-[#C9A55C]">
+                  <Icon name="globe" />
+                </span>
+                theauricstudios.com
+              </a>
             </div>
           </div>
 
@@ -754,113 +750,68 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="relative z-10 border-t border-white/10 bg-black px-4 py-14 sm:px-6 md:px-8">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
-            <div>
-              <Logo className="h-auto w-36" />
-
-              <p className="mt-6 max-w-md text-sm leading-7 text-[#A7A7A7]">
-                AURIC Studio helps local businesses improve how they appear
-                online through cleaner websites, stronger profiles, QR contact
-                systems, review flows, and simple reporting touchpoints.
-              </p>
-            </div>
-
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.28em] text-[#C9A55C]">
-                Services
-              </div>
-
-              <div className="mt-5 space-y-3 text-sm text-white/55">
-                <a href="#packages" className="block transition hover:text-[#C9A55C]">
-                  Presence Reviews
-                </a>
-                <a href="#packages" className="block transition hover:text-[#C9A55C]">
-                  Website Cleanup
-                </a>
-                <a href="#packages" className="block transition hover:text-[#C9A55C]">
-                  Profile Setup
-                </a>
-                <a href="#packages" className="block transition hover:text-[#C9A55C]">
-                  QR Contact Systems
-                </a>
-                <a href="#packages" className="block transition hover:text-[#C9A55C]">
-                  Review Flow Setup
-                </a>
-              </div>
-            </div>
-
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.28em] text-[#C9A55C]">
-                For
-              </div>
-
-              <div className="mt-5 space-y-3 text-sm text-white/55">
-                <p>Barbershops</p>
-                <p>Salons & Spas</p>
-                <p>Auto Shops</p>
-                <p>Clinics</p>
-                <p>Local Services</p>
-              </div>
-            </div>
-
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.28em] text-[#C9A55C]">
-                Contact
-              </div>
-
-              <div className="mt-5 space-y-4 text-sm text-white/55">
-                <a
-                  href={`mailto:${EMAIL}`}
-                  className="block transition hover:text-[#C9A55C]"
-                >
-                  {EMAIL}
-                </a>
-
-                <a
-                  href={INSTAGRAM_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block transition hover:text-[#C9A55C]"
-                >
-                  Instagram
-                </a>
-
-                <a
-                  href={LINKEDIN_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block transition hover:text-[#C9A55C]"
-                >
-                  LinkedIn
-                </a>
-
-                <a
-                  href={WEBSITE_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block transition hover:text-[#C9A55C]"
-                >
-                  Website
-                </a>
-
-                <a
-                  href="#contact"
-                  className="mt-2 inline-flex border border-[#C9A55C]/40 px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-[#C9A55C] transition hover:bg-[#C9A55C] hover:text-black"
-                >
-                  Request Review
-                </a>
-              </div>
-            </div>
+      <footer className="relative z-10 border-t border-white/10 bg-black px-4 py-12 sm:px-6 md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.7fr_1fr_0.85fr] lg:items-start">
+          <div>
+            <Logo className="h-auto w-28" />
           </div>
 
-          <div className="mt-12 h-px bg-white/10" />
-
-          <div className="mt-6 flex flex-col gap-3 text-[11px] uppercase tracking-[0.24em] text-white/30 md:flex-row md:items-center md:justify-between">
-            <span>© AURIC Studio</span>
-            <span>theauricstudios.com</span>
+          <div>
+            <p className="max-w-xl text-sm leading-8 text-[#A7A7A7]">
+              AURIC Studio helps local businesses improve how they appear
+              online through cleaner websites, stronger profiles, QR contact
+              systems, review flows, and simple reporting touchpoints.
+            </p>
           </div>
+
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.28em] text-[#C9A55C]">
+              Contact
+            </div>
+
+            <div className="mt-5 space-y-4 text-sm text-white/55">
+              <a
+                href={`mailto:${EMAIL}`}
+                className="block transition hover:text-[#C9A55C]"
+              >
+                {EMAIL}
+              </a>
+
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="block transition hover:text-[#C9A55C]"
+              >
+                Instagram
+              </a>
+
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="block transition hover:text-[#C9A55C]"
+              >
+                LinkedIn
+              </a>
+
+              <a
+                href={WEBSITE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="block transition hover:text-[#C9A55C]"
+              >
+                Website
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-10 max-w-7xl h-px bg-white/10" />
+
+        <div className="mx-auto mt-5 flex max-w-7xl flex-col gap-3 text-[11px] uppercase tracking-[0.24em] text-white/30 md:flex-row md:items-center md:justify-between">
+          <span>© AURIC Studio</span>
+          <span>theauricstudios.com</span>
         </div>
       </footer>
     </main>
