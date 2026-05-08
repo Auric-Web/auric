@@ -6,7 +6,15 @@ const LOGO_SRC = "/logo.png";
 
 type IconName = "arrow" | "instagram" | "mail" | "website";
 
-function Icon({ name, size = 18, className = "" }: { name: IconName; size?: number; className?: string }) {
+function Icon({
+  name,
+  size = 18,
+  className = "",
+}: {
+  name: IconName;
+  size?: number;
+  className?: string;
+}) {
   const common: SVGProps<SVGSVGElement> = {
     width: size,
     height: size,
@@ -83,6 +91,7 @@ function LinkCard({
           <span className="block text-base font-medium tracking-[-0.01em] text-[#F5F0E8]">
             {label}
           </span>
+
           <span className="mt-1 block text-sm leading-6 text-white/50">
             {description}
           </span>
@@ -110,12 +119,16 @@ export default function ConnectPage() {
       <section className="relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] max-w-xl flex-col justify-center">
         <div className="border border-white/10 bg-black/35 p-6 shadow-[0_0_80px_rgba(0,0,0,0.45)] backdrop-blur sm:p-8">
           <div className="flex justify-center">
-            <img src={LOGO_SRC} alt="AURIC Studio" className="h-auto w-32 object-contain" />
+            <img
+              src={LOGO_SRC}
+              alt="AURIC Studio"
+              className="h-auto w-32 object-contain"
+            />
           </div>
 
           <div className="mt-8 text-center">
             <div className="mx-auto mb-5 w-fit border border-[#C9A55C]/30 bg-[#C9A55C]/5 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-[#C9A55C]">
-              Connect with AURIC
+              Connect With AURIC
             </div>
 
             <h1 className="text-[clamp(2.2rem,9vw,4.6rem)] font-light leading-[0.9] tracking-[-0.07em]">
