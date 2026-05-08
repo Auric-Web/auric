@@ -22,7 +22,6 @@ type IconName =
   | "check"
   | "instagram"
   | "mail"
-  | "spark"
   | "linkedin"
   | "globe";
 
@@ -118,12 +117,6 @@ function Icon({
         <path d="m4 7 8 6 8-6" />
       </>
     ),
-    spark: (
-      <>
-        <path d="M12 3l1.6 5.2L19 10l-5.4 1.8L12 17l-1.6-5.2L5 10l5.4-1.8L12 3z" />
-        <path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16z" />
-      </>
-    ),
     linkedin: (
       <>
         <path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-12h4v2" />
@@ -172,15 +165,15 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 function PackageCard({ item }: { item: PackageItem }) {
   return (
-    <article className="group relative overflow-hidden border border-[#C9A55C]/15 bg-black/45 p-5 transition duration-500 hover:-translate-y-1 hover:border-[#C9A55C]/50 hover:bg-[#0c0c0c] md:p-6">
+    <article className="group relative overflow-hidden border border-[#C9A55C]/15 bg-black/40 p-5 transition duration-500 hover:-translate-y-1 hover:border-[#C9A55C]/45 hover:bg-[#0b0b0b] md:p-6">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),rgba(0,0,0,0.2))]" />
-      <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-[#C9A55C]/10 blur-3xl" />
+      <div className="absolute right-0 top-0 h-24 w-24 translate-x-10 -translate-y-10 rounded-full bg-[#C9A55C]/10 blur-3xl" />
 
-      <div className="relative text-[10px] uppercase tracking-[0.28em] text-[#C9A55C]">
+      <div className="relative text-[10px] uppercase tracking-[0.3em] text-[#C9A55C]">
         {item.label}
       </div>
 
-      <h3 className="relative mt-4 text-[1.9rem] font-light tracking-[-0.04em] text-[#F5F0E8]">
+      <h3 className="relative mt-4 text-[1.85rem] font-light tracking-[-0.04em] text-[#F5F0E8]">
         {item.title}
       </h3>
 
@@ -512,7 +505,7 @@ function ContactForm() {
   );
 }
 
-function NavPill({
+function NavAccent({
   label,
   target,
 }: {
@@ -523,11 +516,35 @@ function NavPill({
     <button
       type="button"
       onClick={() => scrollToId(target)}
-      className="group relative overflow-hidden border border-white/10 bg-white/[0.03] px-4 py-2.5 text-[11px] uppercase tracking-[0.22em] text-white/70 transition duration-300 hover:border-[#C9A55C]/45 hover:text-[#F5F0E8]"
+      className="group relative px-1 py-2 text-[11px] uppercase tracking-[0.28em] text-white/58 transition duration-300 hover:text-[#F5F0E8]"
     >
-      <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[#C9A55C] transition duration-300 group-hover:scale-x-100" />
-      <span className="relative">{label}</span>
+      <span className="absolute left-0 top-1/2 h-px w-0 -translate-y-1/2 bg-[#C9A55C] transition-all duration-300 group-hover:w-4" />
+      <span className="relative pl-0 transition-all duration-300 group-hover:pl-6">
+        {label}
+      </span>
+      <span className="absolute bottom-0 left-0 h-px w-full origin-center scale-x-0 bg-[#C9A55C]/70 transition-transform duration-300 group-hover:scale-x-100" />
     </button>
+  );
+}
+
+function FooterIconLink({
+  href,
+  icon,
+  external = false,
+}: {
+  href: string;
+  icon: IconName;
+  external?: boolean;
+}) {
+  return (
+    <a
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
+      className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/70 transition duration-300 hover:border-[#C9A55C]/60 hover:bg-[#C9A55C]/10 hover:text-[#C9A55C]"
+    >
+      <Icon name={icon} size={18} className="transition group-hover:scale-105" />
+    </a>
   );
 }
 
@@ -577,10 +594,10 @@ export default function Home() {
             <Logo className="h-16 w-auto max-w-[215px] transition duration-500 group-hover:drop-shadow-[0_0_18px_rgba(201,165,92,0.45)]" />
           </button>
 
-          <nav className="hidden items-center gap-3 md:flex">
-            <NavPill label="Packages" target="#packages" />
-            <NavPill label="Showcase" target="#showcase" />
-            <NavPill label="Contact" target="#contact" />
+          <nav className="hidden items-center gap-8 md:flex">
+            <NavAccent label="Packages" target="#packages" />
+            <NavAccent label="Showcase" target="#showcase" />
+            <NavAccent label="Contact" target="#contact" />
           </nav>
 
           <button
@@ -602,12 +619,7 @@ export default function Home() {
             <div className="absolute right-[13%] top-[8%] h-px w-[18%] bg-gradient-to-r from-transparent via-[#C9A55C] to-transparent" />
 
             <div className="relative">
-              <div className="mb-7 inline-flex items-center gap-3 border border-[#C9A55C]/25 bg-[#C9A55C]/5 px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-[#C9A55C]">
-                <Icon name="spark" size={13} />
-                Online Presence Setup & Cleanup
-              </div>
-
-              <h1 className="max-w-5xl text-[clamp(2.7rem,6vw,6.3rem)] font-light leading-[0.94] tracking-[-0.07em] text-[#F5F0E8]">
+              <h1 className="max-w-5xl text-[clamp(2.75rem,6vw,6.4rem)] font-light leading-[0.94] tracking-[-0.07em] text-[#F5F0E8]">
                 Your business should look as good online as it does in real
                 life.
               </h1>
@@ -750,68 +762,26 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="relative z-10 border-t border-white/10 bg-black px-4 py-12 sm:px-6 md:px-8">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.7fr_1fr_0.85fr] lg:items-start">
-          <div>
-            <Logo className="h-auto w-28" />
+      <footer className="relative z-10 border-t border-white/10 bg-black px-4 py-8 sm:px-6 md:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <div className="text-[11px] uppercase tracking-[0.24em] text-white/35">
+            © AURIC Studio
           </div>
 
-          <div>
-            <p className="max-w-xl text-sm leading-8 text-[#A7A7A7]">
-              AURIC Studio helps local businesses improve how they appear
-              online through cleaner websites, stronger profiles, QR contact
-              systems, review flows, and simple reporting touchpoints.
-            </p>
+          <div className="flex items-center gap-3">
+            <FooterIconLink href={`mailto:${EMAIL}`} icon="mail" />
+            <FooterIconLink
+              href={INSTAGRAM_URL}
+              icon="instagram"
+              external
+            />
+            <FooterIconLink
+              href={LINKEDIN_URL}
+              icon="linkedin"
+              external
+            />
+            <FooterIconLink href={WEBSITE_URL} icon="globe" external />
           </div>
-
-          <div>
-            <div className="text-[11px] uppercase tracking-[0.28em] text-[#C9A55C]">
-              Contact
-            </div>
-
-            <div className="mt-5 space-y-4 text-sm text-white/55">
-              <a
-                href={`mailto:${EMAIL}`}
-                className="block transition hover:text-[#C9A55C]"
-              >
-                {EMAIL}
-              </a>
-
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="block transition hover:text-[#C9A55C]"
-              >
-                Instagram
-              </a>
-
-              <a
-                href={LINKEDIN_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="block transition hover:text-[#C9A55C]"
-              >
-                LinkedIn
-              </a>
-
-              <a
-                href={WEBSITE_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="block transition hover:text-[#C9A55C]"
-              >
-                Website
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className="mx-auto mt-10 max-w-7xl h-px bg-white/10" />
-
-        <div className="mx-auto mt-5 flex max-w-7xl flex-col gap-3 text-[11px] uppercase tracking-[0.24em] text-white/30 md:flex-row md:items-center md:justify-between">
-          <span>© AURIC Studio</span>
-          <span>theauricstudios.com</span>
         </div>
       </footer>
     </main>
