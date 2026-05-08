@@ -4,6 +4,7 @@ import React, {
   FormEvent,
   PointerEvent,
   SVGProps,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -11,7 +12,19 @@ import React, {
 const LOGO_SRC = "/logo.png";
 const BEFORE_LOGO_SRC = "/before-logo.png";
 
-type IconName = "arrow" | "check" | "instagram" | "mail" | "spark" | "pin";
+const EMAIL = "hello@theauricstudios.com";
+const INSTAGRAM_URL = "https://www.instagram.com/auricstudio.co/";
+const LINKEDIN_URL = "https://www.linkedin.com/company/auricstudios";
+const WEBSITE_URL = "https://theauricstudios.com";
+
+type IconName =
+  | "arrow"
+  | "check"
+  | "instagram"
+  | "mail"
+  | "spark"
+  | "linkedin"
+  | "globe";
 
 type PackageItem = {
   title: string;
@@ -25,7 +38,7 @@ const packages: PackageItem[] = [
     title: "Presence Review",
     label: "First Step",
     description:
-      "A simple review of how the business currently appears online and where trust, clarity, and contact flow can improve.",
+      "A focused review of how the business appears online, where trust is weak, and where the contact flow can improve.",
     items: [
       "Website / landing page review",
       "Instagram profile review",
@@ -111,10 +124,20 @@ function Icon({
         <path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16z" />
       </>
     ),
-    pin: (
+    linkedin: (
       <>
-        <path d="M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11z" />
-        <circle cx="12" cy="10" r="2.3" />
+        <path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-12h4v2" />
+        <rect x="2" y="9" width="4" height="11" />
+        <circle cx="4" cy="4" r="2" />
+      </>
+    ),
+    globe: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3.6 9h16.8" />
+        <path d="M3.6 15h16.8" />
+        <path d="M12 3a15 15 0 0 1 0 18" />
+        <path d="M12 3a15 15 0 0 0 0 18" />
       </>
     ),
   };
@@ -267,11 +290,11 @@ function AfterPanel() {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <div className="bg-[#C9A55C] px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-black">
-              Request Review
+              View Services
             </div>
 
             <div className="border border-white/15 px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white">
-              View Services
+              See Examples
             </div>
           </div>
         </div>
@@ -486,6 +509,18 @@ function ContactForm() {
 }
 
 export default function Home() {
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }, []);
+
   return (
     <main
       id="top"
@@ -498,48 +533,31 @@ export default function Home() {
       </div>
 
       <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 md:px-8">
-          <button
-            type="button"
-            onClick={() => scrollToId("#top")}
-            className="group flex items-center"
-          >
-            <Logo className="h-10 w-auto max-w-[140px] transition duration-500 group-hover:drop-shadow-[0_0_18px_rgba(201,165,92,0.45)]" />
-          </button>
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 md:px-8">
+          <a href="#top" className="group flex items-center">
+            <Logo className="h-14 w-auto max-w-[185px] transition duration-500 group-hover:drop-shadow-[0_0_18px_rgba(201,165,92,0.45)]" />
+          </a>
 
-          <nav className="hidden items-center gap-8 text-[11px] uppercase tracking-[0.26em] text-white/55 md:flex">
-            <button
-              type="button"
-              onClick={() => scrollToId("#packages")}
-              className="transition hover:text-[#C9A55C]"
-            >
+          <nav className="hidden items-center gap-9 text-[13px] uppercase tracking-[0.26em] text-white/60 md:flex">
+            <a href="#packages" className="transition hover:text-[#C9A55C]">
               Packages
-            </button>
+            </a>
 
-            <button
-              type="button"
-              onClick={() => scrollToId("#showcase")}
-              className="transition hover:text-[#C9A55C]"
-            >
+            <a href="#showcase" className="transition hover:text-[#C9A55C]">
               Showcase
-            </button>
+            </a>
 
-            <button
-              type="button"
-              onClick={() => scrollToId("#contact")}
-              className="transition hover:text-[#C9A55C]"
-            >
+            <a href="#contact" className="transition hover:text-[#C9A55C]">
               Contact
-            </button>
+            </a>
           </nav>
 
-          <button
-            type="button"
-            onClick={() => scrollToId("#contact")}
+          <a
+            href="#contact"
             className="hidden border border-[#C9A55C]/40 px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-[#C9A55C] transition hover:bg-[#C9A55C] hover:text-black md:inline-flex"
           >
             Request Review
-          </button>
+          </a>
         </div>
       </header>
 
@@ -567,35 +585,45 @@ export default function Home() {
               </p>
 
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                <button
-                  type="button"
-                  onClick={() => scrollToId("#contact")}
+                <a
+                  href="#packages"
                   className="group inline-flex items-center justify-center gap-3 border border-[#C9A55C] bg-[#C9A55C] px-6 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-black transition duration-500 hover:bg-[#F3D486] hover:shadow-[0_0_35px_rgba(201,165,92,0.25)]"
                 >
-                  Request Review
+                  Our Services
                   <Icon
                     name="arrow"
                     size={16}
                     className="transition group-hover:translate-x-1"
                   />
-                </button>
+                </a>
 
-                <button
-                  type="button"
-                  onClick={() => scrollToId("#showcase")}
+                <a
+                  href="#showcase"
                   className="inline-flex items-center justify-center border border-white/15 px-6 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-[#F5F0E8] transition duration-500 hover:border-[#C9A55C]/60 hover:text-[#C9A55C]"
                 >
-                  See Example
-                </button>
+                  See Examples
+                </a>
               </div>
 
               <div className="mt-14 grid gap-4 border-t border-white/10 pt-8 md:grid-cols-3">
                 {[
-                  ["Website", "Cleaner structure, stronger trust, clearer calls to action."],
-                  ["Profiles", "Instagram and Google pages that look active, clear, and credible."],
-                  ["Contact Flow", "QR links, forms, email paths, and review systems that reduce friction."],
+                  [
+                    "Website",
+                    "Cleaner structure, stronger trust, clearer calls to action.",
+                  ],
+                  [
+                    "Profiles",
+                    "Instagram and Google pages that look active, clear, and credible.",
+                  ],
+                  [
+                    "Contact Flow",
+                    "QR links, forms, email paths, and review systems that reduce friction.",
+                  ],
                 ].map(([title, text]) => (
-                  <div key={title} className="border border-white/10 bg-black/25 p-5">
+                  <div
+                    key={title}
+                    className="border border-white/10 bg-black/25 p-5"
+                  >
                     <h3 className="text-lg font-light tracking-[-0.02em] text-[#F5F0E8]">
                       {title}
                     </h3>
@@ -626,9 +654,9 @@ export default function Home() {
             </div>
 
             <p className="max-w-3xl text-base leading-8 text-[#A7A7A7]">
-              The offer is built to feel practical, not scammy. First, the
-              business gets a clear review of what looks weak online. Then they
-              can choose whether they want help cleaning it up.
+              A clean path for businesses that need a stronger online presence
+              without overcomplicated agency retainers or vague marketing
+              promises.
             </p>
           </div>
 
@@ -650,14 +678,14 @@ export default function Home() {
               <SectionLabel>Sample Showcase</SectionLabel>
 
               <h2 className="text-[clamp(2.3rem,5.4vw,5.2rem)] font-light leading-[0.94] tracking-[-0.06em]">
-                Show the difference visually.
+                From unclear to premium.
               </h2>
             </div>
 
             <p className="max-w-3xl text-base leading-8 text-[#A7A7A7]">
-              Use this before/after section when explaining the service. It
-              shows the difference between an unclear online presence and a
-              cleaner, more premium customer-facing setup.
+              A visual comparison of how a weak online presence can be reshaped
+              into a cleaner, sharper, and easier-to-contact customer
+              experience.
             </p>
           </div>
 
@@ -687,17 +715,17 @@ export default function Home() {
 
             <div className="mt-8 space-y-4 text-sm text-[#D7D0C5]">
               <a
-                href="mailto:hello@auricstudio.co"
+                href={`mailto:${EMAIL}`}
                 className="flex items-center gap-3 transition hover:text-[#C9A55C]"
               >
                 <span className="grid h-10 w-10 place-items-center border border-white/10 bg-black/30 text-[#C9A55C]">
                   <Icon name="mail" />
                 </span>
-                hello@auricstudio.co
+                {EMAIL}
               </a>
 
               <a
-                href="https://instagram.com/auricstudio.co"
+                href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-3 transition hover:text-[#C9A55C]"
@@ -706,6 +734,18 @@ export default function Home() {
                   <Icon name="instagram" />
                 </span>
                 @auricstudio.co
+              </a>
+
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 transition hover:text-[#C9A55C]"
+              >
+                <span className="grid h-10 w-10 place-items-center border border-white/10 bg-black/30 text-[#C9A55C]">
+                  <Icon name="linkedin" />
+                </span>
+                LinkedIn
               </a>
             </div>
           </div>
@@ -718,7 +758,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
             <div>
-              <Logo className="h-auto w-28" />
+              <Logo className="h-auto w-36" />
 
               <p className="mt-6 max-w-md text-sm leading-7 text-[#A7A7A7]">
                 AURIC Studio helps local businesses improve how they appear
@@ -733,11 +773,21 @@ export default function Home() {
               </div>
 
               <div className="mt-5 space-y-3 text-sm text-white/55">
-                <p>Presence Reviews</p>
-                <p>Website Cleanup</p>
-                <p>Profile Setup</p>
-                <p>QR Contact Systems</p>
-                <p>Review Flow Setup</p>
+                <a href="#packages" className="block transition hover:text-[#C9A55C]">
+                  Presence Reviews
+                </a>
+                <a href="#packages" className="block transition hover:text-[#C9A55C]">
+                  Website Cleanup
+                </a>
+                <a href="#packages" className="block transition hover:text-[#C9A55C]">
+                  Profile Setup
+                </a>
+                <a href="#packages" className="block transition hover:text-[#C9A55C]">
+                  QR Contact Systems
+                </a>
+                <a href="#packages" className="block transition hover:text-[#C9A55C]">
+                  Review Flow Setup
+                </a>
               </div>
             </div>
 
@@ -762,28 +812,45 @@ export default function Home() {
 
               <div className="mt-5 space-y-4 text-sm text-white/55">
                 <a
-                  href="mailto:hello@auricstudio.co"
+                  href={`mailto:${EMAIL}`}
                   className="block transition hover:text-[#C9A55C]"
                 >
-                  hello@auricstudio.co
+                  {EMAIL}
                 </a>
 
                 <a
-                  href="https://instagram.com/auricstudio.co"
+                  href={INSTAGRAM_URL}
                   target="_blank"
                   rel="noreferrer"
                   className="block transition hover:text-[#C9A55C]"
                 >
-                  @auricstudio.co
+                  Instagram
                 </a>
 
-                <button
-                  type="button"
-                  onClick={() => scrollToId("#contact")}
-                  className="mt-2 border border-[#C9A55C]/40 px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-[#C9A55C] transition hover:bg-[#C9A55C] hover:text-black"
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block transition hover:text-[#C9A55C]"
+                >
+                  LinkedIn
+                </a>
+
+                <a
+                  href={WEBSITE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block transition hover:text-[#C9A55C]"
+                >
+                  Website
+                </a>
+
+                <a
+                  href="#contact"
+                  className="mt-2 inline-flex border border-[#C9A55C]/40 px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-[#C9A55C] transition hover:bg-[#C9A55C] hover:text-black"
                 >
                   Request Review
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -792,7 +859,7 @@ export default function Home() {
 
           <div className="mt-6 flex flex-col gap-3 text-[11px] uppercase tracking-[0.24em] text-white/30 md:flex-row md:items-center md:justify-between">
             <span>© AURIC Studio</span>
-            <span>Online Presence Setup & Cleanup</span>
+            <span>theauricstudios.com</span>
           </div>
         </div>
       </footer>
