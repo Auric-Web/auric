@@ -11,7 +11,6 @@ import React, {
 } from "react";
 
 const LOGO_SRC = "/logo.png";
-const BEFORE_LOGO_SRC = "/before-logo.png";
 
 const EMAIL = "hello@theauricstudios.com";
 const INSTAGRAM_URL = "https://www.instagram.com/auricstudio.co/";
@@ -21,7 +20,6 @@ const WEBSITE_URL = "https://theauricstudios.com";
 const CAELUS_NEW_LOGO = "/showcase/caelus-new-logo.png";
 const CAELUS_NEW_CARD = "/showcase/caelus-new-business-card.png";
 const CAELUS_OLD_LOGO_1 = "/showcase/caelus-old-logo-1.png";
-const CAELUS_OLD_LOGO_2 = "/showcase/caelus-old-logo-2.png";
 
 type IconName =
   | "arrow"
@@ -198,13 +196,13 @@ const showcaseItems: ShowcaseItem[] = [
         x: "9%",
         y: "20%",
         side: "right",
-        text: "Old concepts feel generic and inconsistent.",
+        text: "Old concept feels generic and inconsistent.",
       },
       {
         x: "58%",
         y: "38%",
         side: "left",
-        text: "Mismatch in style weakens brand recognition.",
+        text: "Weak execution lowers perceived professionalism.",
       },
       {
         x: "9%",
@@ -415,12 +413,14 @@ function OldWebsitePanel() {
           </div>
           <span>Caeluscore</span>
         </div>
+
         <div className="hidden gap-5 md:flex">
           <span>Home</span>
           <span>Services</span>
           <span>About</span>
           <span>Contact</span>
         </div>
+
         <div className="rounded bg-white px-3 py-1.5 text-[#1e607c]">
           Start
         </div>
@@ -431,9 +431,11 @@ function OldWebsitePanel() {
           <div className="mb-5 inline-block border-2 border-dashed border-[#1e607c]/35 px-3 py-2 text-[10px] font-black uppercase">
             We do many things
           </div>
+
           <h3 className="max-w-xl text-[clamp(2rem,4vw,4.7rem)] font-black leading-[0.94] tracking-[-0.05em] text-[#21546f]">
             WELCOME TO CAELUSCORE
           </h3>
+
           <p className="mt-5 max-w-lg text-sm font-semibold leading-7 text-[#44718a]">
             We offer engineering, staffing, operations, project support, audits,
             inspection, logistics and other solutions for your needs.
@@ -518,9 +520,11 @@ function NewWebsitePanel() {
           <div className="mb-4 inline-flex border border-[#C9A55C]/30 bg-[#C9A55C]/10 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-[#C9A55C]">
             Execution Support & Compliance Services
           </div>
+
           <h3 className="text-[clamp(2rem,4vw,4.4rem)] font-light leading-[0.94] tracking-[-0.06em]">
             Two service lines. One accountable partner.
           </h3>
+
           <p className="mt-5 max-w-lg text-sm leading-7 text-white/68">
             Workforce support to keep operations moving, plus structured audit
             services built around compliance, efficiency, and reporting.
@@ -572,20 +576,37 @@ function OldBusinessCardPanel() {
   return (
     <div className="absolute inset-0 overflow-hidden bg-[#e8ebef]">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.2),rgba(0,0,0,0.06))]" />
+
       <div className="relative flex h-full items-center justify-center px-8 py-8">
         <div className="grid w-full max-w-[960px] gap-5 md:grid-cols-2">
           <div className="rotate-[-8deg] rounded bg-white p-5 shadow-[0_18px_50px_rgba(0,0,0,0.2)]">
             <div className="rounded border-2 border-dashed border-[#2d84a6]/35 p-4">
-              <div className="text-xs font-black uppercase tracking-[0.22em] text-[#2d84a6]">
-                CAELUSCORE
+              <div className="flex items-center gap-3">
+                <img
+                  src={CAELUS_OLD_LOGO_1}
+                  alt="Old CaelusCore logo"
+                  className="h-14 w-14 object-contain"
+                />
+
+                <div>
+                  <div className="text-xs font-black uppercase tracking-[0.22em] text-[#2d84a6]">
+                    CAELUSCORE
+                  </div>
+                  <div className="mt-1 text-[10px] font-bold uppercase text-[#6b8da0]">
+                    Engineering / Staffing / Consulting
+                  </div>
+                </div>
               </div>
-              <div className="mt-2 text-2xl font-black text-[#1e4f66]">
+
+              <div className="mt-7 text-2xl font-black text-[#1e4f66]">
                 ALEX MORGAN
               </div>
+
               <div className="mt-1 text-[11px] font-bold uppercase text-[#5e8192]">
                 Founder / Consultant / Operations / Staffing
               </div>
-              <div className="mt-4 space-y-2 text-sm font-semibold text-[#436779]">
+
+              <div className="mt-5 space-y-2 text-sm font-semibold text-[#436779]">
                 <div>+1 206 555 0198</div>
                 <div>alex.morgan@caeluscore.com</div>
                 <div>www.caeluscore.com</div>
@@ -599,10 +620,21 @@ function OldBusinessCardPanel() {
               <div className="text-[11px] font-black uppercase tracking-[0.24em] text-[#2d84a6]">
                 Caeluscore
               </div>
-              <div className="mt-4 h-24 rounded border border-[#c1d4df] bg-[#f6fbfd]" />
-              <div className="mt-4 text-xs font-semibold text-[#4e7588]">
-                Engineering | Staffing | Support | Consulting
+
+              <div className="mt-5 grid h-32 place-items-center rounded border border-[#c1d4df] bg-[#f6fbfd]">
+                <img
+                  src={CAELUS_OLD_LOGO_1}
+                  alt="Old CaelusCore logo"
+                  className="max-h-24 max-w-[70%] object-contain"
+                />
               </div>
+
+              <div className="mt-5 text-xs font-semibold leading-6 text-[#4e7588]">
+                Engineering | Staffing | Support | Consulting | Operations |
+                Audits | Solutions
+              </div>
+
+              <div className="mt-4 h-3 w-28 rounded bg-[#2d84a6]/30" />
             </div>
           </div>
         </div>
@@ -635,32 +667,19 @@ function OldLogoPanel() {
   return (
     <div className="absolute inset-0 overflow-hidden bg-[#eceef1]">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(0,0,0,0.05))]" />
+
       <div className="relative flex h-full items-center justify-center px-8 py-8">
-        <div className="grid w-full max-w-[950px] gap-5 md:grid-cols-2">
-          <div className="rounded bg-white p-5 shadow-[0_18px_50px_rgba(0,0,0,0.2)]">
-            <div className="mb-4 text-[10px] font-black uppercase tracking-[0.24em] text-[#6b7a88]">
-              Old Concept A
-            </div>
-            <div className="grid min-h-[260px] place-items-center rounded border border-[#d6dde3] bg-[#f9fbfc]">
-              <img
-                src={CAELUS_OLD_LOGO_1}
-                alt="Old CaelusCore logo concept 1"
-                className="max-h-[200px] max-w-[85%] object-contain"
-              />
-            </div>
+        <div className="w-full max-w-[760px] rounded bg-white p-6 shadow-[0_18px_50px_rgba(0,0,0,0.22)]">
+          <div className="mb-4 text-[10px] font-black uppercase tracking-[0.24em] text-[#6b7a88]">
+            Old Logo Concept
           </div>
 
-          <div className="rounded bg-white p-5 shadow-[0_18px_50px_rgba(0,0,0,0.2)]">
-            <div className="mb-4 text-[10px] font-black uppercase tracking-[0.24em] text-[#6b7a88]">
-              Old Concept B
-            </div>
-            <div className="grid min-h-[260px] place-items-center rounded border border-[#d6dde3] bg-[#f9fbfc] p-6">
-              <img
-                src={CAELUS_OLD_LOGO_2}
-                alt="Old CaelusCore logo concept 2"
-                className="max-h-[220px] max-w-[90%] object-contain"
-              />
-            </div>
+          <div className="grid min-h-[360px] place-items-center rounded border border-[#d6dde3] bg-[#f9fbfc] p-8">
+            <img
+              src={CAELUS_OLD_LOGO_1}
+              alt="Old CaelusCore logo concept"
+              className="max-h-[280px] max-w-[85%] object-contain"
+            />
           </div>
         </div>
       </div>
@@ -690,9 +709,11 @@ function NewLogoPanel() {
               <div className="text-[10px] uppercase tracking-[0.3em] text-[#C9A55C]">
                 Updated identity
               </div>
+
               <div className="mt-4 text-3xl font-light tracking-[-0.03em] text-[#F5F0E8]">
                 Cleaner. Stronger. More premium.
               </div>
+
               <div className="mt-4 space-y-3 text-sm leading-7 text-white/65">
                 <p>• Better visual consistency across print and web.</p>
                 <p>• More distinctive mark for stronger recall.</p>
@@ -724,6 +745,7 @@ function ShowcaseSlider({
   function updatePosition(clientX: number) {
     const rect = wrapRef.current?.getBoundingClientRect();
     if (!rect) return;
+
     setPosition(
       Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100))
     );
@@ -745,9 +767,14 @@ function ShowcaseSlider({
         onPointerCancel={() => setDragging(false)}
         className="relative aspect-[16/11] cursor-ew-resize touch-none select-none overflow-hidden md:aspect-[16/8]"
       >
-        <div className="absolute inset-0">
-          {before}
-          <OverlayNotes notes={beforeNotes} tone="before" />
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
+        >
+          <div className="absolute inset-0">
+            {before}
+            <OverlayNotes notes={beforeNotes} tone="before" />
+          </div>
         </div>
 
         <div
@@ -771,11 +798,23 @@ function ShowcaseSlider({
           </div>
         </div>
 
-        <div className="absolute left-4 top-4 z-40 rounded-full border border-black/10 bg-white/82 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-black backdrop-blur">
+        <div
+          className="pointer-events-none absolute left-4 top-4 z-40 rounded-full border border-black/10 bg-white/82 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-black backdrop-blur"
+          style={{
+            opacity: position > 8 ? 1 : 0,
+            transition: "opacity 200ms ease",
+          }}
+        >
           Before
         </div>
 
-        <div className="absolute right-4 top-4 z-40 rounded-full border border-[#C9A55C]/40 bg-black/72 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#C9A55C] backdrop-blur">
+        <div
+          className="pointer-events-none absolute right-4 top-4 z-40 rounded-full border border-[#C9A55C]/40 bg-black/72 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#C9A55C] backdrop-blur"
+          style={{
+            opacity: position < 92 ? 1 : 0,
+            transition: "opacity 200ms ease",
+          }}
+        >
           After
         </div>
       </div>
