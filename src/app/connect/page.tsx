@@ -4,7 +4,8 @@ import React, { SVGProps, useEffect } from "react";
 
 const LOGO_SRC = "/logo.png";
 
-const EMAIL = "hello@theauricstudios.com";
+const EMAIL_HREF =
+  "mailto:hello@theauricstudios.com?subject=AURIC%20Studio%20Inquiry";
 const WEBSITE_URL = "https://theauricstudios.com";
 const INSTAGRAM_URL = "https://www.instagram.com/auricstudio.co/";
 const LINKEDIN_URL = "https://www.linkedin.com/company/auricstudios";
@@ -169,7 +170,7 @@ export default function ConnectPage() {
               external
             />
 
-            <LinkButton href={`mailto:${EMAIL}`} icon="mail" label="Email" />
+            <LinkButton href={EMAIL_HREF} icon="mail" label="Email" />
 
             <LinkButton
               href={INSTAGRAM_URL}
