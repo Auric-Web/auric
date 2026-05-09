@@ -13,6 +13,8 @@ import React, {
 const LOGO_SRC = "/logo.png";
 
 const EMAIL = "hello@theauricstudios.com";
+const EMAIL_HREF =
+  "mailto:hello@theauricstudios.com?subject=AURIC%20Studio%20Inquiry";
 const INSTAGRAM_URL = "https://www.instagram.com/auricstudio.co/";
 const LINKEDIN_URL = "https://www.linkedin.com/company/auricstudios";
 const WEBSITE_URL = "https://theauricstudios.com";
@@ -103,42 +105,42 @@ const showcaseItems: ShowcaseItem[] = [
     title: "Website Refresh",
     beforeNotes: [
       {
-        x: "7%",
-        y: "15%",
+        x: "8%",
+        y: "20%",
         side: "right",
-        text: "Generic hero with weak first impression.",
+        text: "Unclear first impression",
       },
       {
         x: "8%",
-        y: "60%",
+        y: "58%",
         side: "right",
-        text: "Poor hierarchy and cluttered service blocks.",
+        text: "Too broad; no clear offer",
       },
       {
-        x: "63%",
-        y: "26%",
+        x: "62%",
+        y: "32%",
         side: "left",
-        text: "No clear structure or confident positioning.",
+        text: "Weak contact path",
       },
     ],
     afterNotes: [
       {
-        x: "7%",
-        y: "16%",
+        x: "8%",
+        y: "18%",
         side: "right",
-        text: "Sharper positioning and more professional tone.",
+        text: "Clear positioning",
       },
       {
         x: "62%",
-        y: "25%",
+        y: "30%",
         side: "left",
-        text: "Cleaner service split improves clarity fast.",
+        text: "Services are easier to understand",
       },
       {
         x: "58%",
         y: "72%",
         side: "left",
-        text: "Stronger CTAs and contact path help convert inquiries.",
+        text: "Stronger inquiry flow",
       },
     ],
   },
@@ -151,19 +153,19 @@ const showcaseItems: ShowcaseItem[] = [
         x: "9%",
         y: "18%",
         side: "right",
-        text: "Too busy and visually dated.",
+        text: "Crowded layout",
       },
       {
         x: "58%",
         y: "50%",
         side: "left",
-        text: "Weak spacing and low-end presentation.",
+        text: "Weak spacing",
       },
       {
         x: "10%",
         y: "76%",
         side: "right",
-        text: "Looks like a starter mockup, not a serious brand asset.",
+        text: "Low-end presentation",
       },
     ],
     afterNotes: [
@@ -171,19 +173,19 @@ const showcaseItems: ShowcaseItem[] = [
         x: "9%",
         y: "17%",
         side: "right",
-        text: "Premium visual style increases perceived quality.",
+        text: "Premium first impression",
       },
       {
         x: "62%",
         y: "38%",
         side: "left",
-        text: "Cleaner layout improves readability and credibility.",
+        text: "Cleaner hierarchy",
       },
       {
         x: "58%",
         y: "77%",
         side: "left",
-        text: "Better brand consistency for meetings and networking.",
+        text: "Better brand consistency",
       },
     ],
   },
@@ -196,19 +198,19 @@ const showcaseItems: ShowcaseItem[] = [
         x: "9%",
         y: "20%",
         side: "right",
-        text: "Old concept feels generic and inconsistent.",
+        text: "Generic visual direction",
       },
       {
         x: "58%",
         y: "38%",
         side: "left",
-        text: "Weak execution lowers perceived professionalism.",
+        text: "Less premium feel",
       },
       {
         x: "9%",
         y: "74%",
         side: "right",
-        text: "The identity does not feel modern or premium.",
+        text: "Harder to use across brand assets",
       },
     ],
     afterNotes: [
@@ -216,19 +218,19 @@ const showcaseItems: ShowcaseItem[] = [
         x: "9%",
         y: "20%",
         side: "right",
-        text: "Cleaner mark gives the brand a stronger identity.",
+        text: "Sharper brand mark",
       },
       {
         x: "62%",
         y: "38%",
         side: "left",
-        text: "Sharper execution feels more premium and intentional.",
+        text: "More polished identity",
       },
       {
         x: "58%",
         y: "76%",
         side: "left",
-        text: "A stronger logo carries better across web and print.",
+        text: "Works better on web and print",
       },
     ],
   },
@@ -367,16 +369,13 @@ function OverlayNotes({
   notes: NoteItem[];
   tone: "before" | "after";
 }) {
-  const lineColor =
-    tone === "before" ? "bg-red-300/65" : "bg-[#C9A55C]/80";
-  const boxBorder =
-    tone === "before" ? "border-red-300/45" : "border-[#C9A55C]/45";
-  const boxText = tone === "before" ? "text-white/88" : "text-[#F5F0E8]";
+  const isBefore = tone === "before";
 
   return (
     <div className="pointer-events-none absolute inset-0 z-30">
       {notes.map((note, index) => {
         const isRight = note.side !== "left";
+
         return (
           <div
             key={`${tone}-${index}`}
@@ -388,11 +387,25 @@ function OverlayNotes({
                 isRight ? "" : "flex-row-reverse"
               }`}
             >
-              <span className={`h-px w-7 shrink-0 ${lineColor}`} />
+              <span
+                className={`h-px w-8 shrink-0 ${
+                  isBefore ? "bg-[#1e607c]/55" : "bg-[#C9A55C]/70"
+                }`}
+              />
+
               <div
-                className={`rounded-md border ${boxBorder} bg-black/72 px-2.5 py-2 text-[10px] leading-4 shadow-[0_0_18px_rgba(0,0,0,0.28)] ${boxText}`}
-                style={{ width: note.width || "170px" }}
+                className={`border px-3 py-2 text-[10px] uppercase leading-4 tracking-[0.14em] shadow-[0_0_22px_rgba(0,0,0,0.24)] backdrop-blur ${
+                  isBefore
+                    ? "border-[#1e607c]/25 bg-white/85 text-[#1e607c]"
+                    : "border-[#C9A55C]/35 bg-black/75 text-[#F5F0E8]"
+                }`}
+                style={{ width: note.width || "155px" }}
               >
+                <span
+                  className={`mb-1 block h-1.5 w-1.5 rounded-full ${
+                    isBefore ? "bg-[#1e607c]" : "bg-[#C9A55C]"
+                  }`}
+                />
                 {note.text}
               </div>
             </div>
@@ -417,7 +430,6 @@ function OldWebsitePanel() {
         <div className="hidden gap-5 md:flex">
           <span>Home</span>
           <span>Services</span>
-          <span>About</span>
           <span>Contact</span>
         </div>
 
@@ -426,10 +438,10 @@ function OldWebsitePanel() {
         </div>
       </div>
 
-      <div className="grid h-[calc(100%-3.5rem)] grid-cols-1 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="px-8 py-8">
+      <div className="flex h-[calc(100%-3.5rem)] items-center px-8 py-8">
+        <div className="max-w-2xl">
           <div className="mb-5 inline-block border-2 border-dashed border-[#1e607c]/35 px-3 py-2 text-[10px] font-black uppercase">
-            We do many things
+            We help businesses
           </div>
 
           <h3 className="max-w-xl text-[clamp(2rem,4vw,4.7rem)] font-black leading-[0.94] tracking-[-0.05em] text-[#21546f]">
@@ -437,26 +449,22 @@ function OldWebsitePanel() {
           </h3>
 
           <p className="mt-5 max-w-lg text-sm font-semibold leading-7 text-[#44718a]">
-            We offer engineering, staffing, operations, project support, audits,
-            inspection, logistics and other solutions for your needs.
+            Engineering, staffing, operations, audits, consulting, support, and
+            business solutions.
           </p>
 
           <div className="mt-7 flex gap-3">
             <div className="border-2 border-[#1e607c] px-4 py-3 text-[11px] font-black uppercase">
-              Read More
+              Learn More
             </div>
+
             <div className="bg-[#1e607c] px-4 py-3 text-[11px] font-black uppercase text-white">
               Contact Us
             </div>
           </div>
 
-          <div className="mt-8 grid gap-3 md:grid-cols-2">
-            {[
-              "Industrial Support",
-              "Staffing",
-              "Engineering",
-              "Consulting",
-            ].map((item) => (
+          <div className="mt-8 grid max-w-lg gap-3 md:grid-cols-2">
+            {["Services", "Support", "Consulting", "Solutions"].map((item) => (
               <div
                 key={item}
                 className="border-2 border-[#8fb0c3] bg-white px-4 py-5 text-sm font-bold"
@@ -464,31 +472,6 @@ function OldWebsitePanel() {
                 {item}
               </div>
             ))}
-          </div>
-        </div>
-
-        <div className="bg-[#dce7ee] p-6">
-          <div className="rounded border-2 border-[#98b3c2] bg-white p-4">
-            <div className="text-[11px] font-black uppercase text-[#1e607c]">
-              Why Choose Us?
-            </div>
-            <ul className="mt-4 space-y-3 text-sm font-semibold text-[#456d85]">
-              <li>• Great service</li>
-              <li>• Many capabilities</li>
-              <li>• Flexible team</li>
-              <li>• Fast response</li>
-            </ul>
-          </div>
-
-          <div className="mt-4 rounded border-2 border-[#98b3c2] bg-white p-4">
-            <div className="text-[11px] font-black uppercase text-[#1e607c]">
-              Contact Form
-            </div>
-            <div className="mt-3 space-y-2">
-              <div className="h-9 border border-[#bdd0dc] bg-[#f5fafc]" />
-              <div className="h-9 border border-[#bdd0dc] bg-[#f5fafc]" />
-              <div className="h-20 border border-[#bdd0dc] bg-[#f5fafc]" />
-            </div>
           </div>
         </div>
       </div>
@@ -507,7 +490,9 @@ function NewWebsitePanel() {
         <div className="font-light tracking-[0.28em] text-[#F5F0E8]">
           CAELUS CORE
         </div>
+
         <div className="hidden gap-5 md:flex">
+          <span>Home</span>
           <span>Who We Are</span>
           <span>What We Do</span>
           <span>Careers</span>
@@ -516,55 +501,64 @@ function NewWebsitePanel() {
       </div>
 
       <div className="relative h-[calc(100%-3.5rem)] px-8 py-8">
-        <div className="max-w-xl">
+        <div className="max-w-3xl">
           <div className="mb-4 inline-flex border border-[#C9A55C]/30 bg-[#C9A55C]/10 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-[#C9A55C]">
             Execution Support & Compliance Services
           </div>
 
-          <h3 className="text-[clamp(2rem,4vw,4.4rem)] font-light leading-[0.94] tracking-[-0.06em]">
-            Two service lines. One accountable partner.
+          <h3 className="text-[clamp(2.1rem,4.6vw,5rem)] font-light leading-[0.94] tracking-[-0.06em]">
+            CAELUS CORE
           </h3>
 
-          <p className="mt-5 max-w-lg text-sm leading-7 text-white/68">
-            Workforce support to keep operations moving, plus structured audit
-            services built around compliance, efficiency, and reporting.
+          <p className="mt-5 max-w-2xl text-sm leading-7 text-white/68">
+            CaelusCore is an execution + compliance partner providing skilled
+            manpower to support operations and certified audits to support
+            compliance, efficiency, and reporting requirements.
           </p>
 
           <div className="mt-7 flex gap-3">
             <div className="bg-[#C9A55C] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-black">
               Contact us
             </div>
+
             <div className="border border-white/15 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white">
               View services
             </div>
           </div>
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          <div className="border border-[#C9A55C]/18 bg-black/30 p-5">
-            <div className="text-[10px] uppercase tracking-[0.28em] text-[#C9A55C]">
-              Service Line 01
-            </div>
-            <div className="mt-3 text-2xl font-light tracking-[-0.03em]">
-              Workforce Supply
-            </div>
-            <p className="mt-3 text-sm leading-7 text-white/60">
-              General labour, forklift operators, warehouse associates, ramp
-              and lifting roles, and other ready-to-deploy support personnel.
-            </p>
+        <div className="mt-8">
+          <div className="mb-4 text-[10px] uppercase tracking-[0.3em] text-[#C9A55C]">
+            What we do
           </div>
 
-          <div className="border border-[#C9A55C]/18 bg-black/30 p-5">
-            <div className="text-[10px] uppercase tracking-[0.28em] text-[#C9A55C]">
-              Service Line 02
+          <h4 className="max-w-3xl text-3xl font-light tracking-[-0.04em] text-[#F5F0E8]">
+            Two service lines. One accountable partner.
+          </h4>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <div className="border border-[#C9A55C]/18 bg-black/30 p-5">
+              <div className="text-2xl font-light tracking-[-0.03em]">
+                Workforce Supply
+              </div>
+
+              <p className="mt-3 text-sm leading-7 text-white/60">
+                General labour, forklift operators, warehouse associates, ramp
+                and lifting roles, and other ready-to-deploy support personnel.
+              </p>
             </div>
-            <div className="mt-3 text-2xl font-light tracking-[-0.03em]">
-              Audits & Inspections
+
+            <div className="border border-[#C9A55C]/18 bg-black/30 p-5">
+              <div className="text-2xl font-light tracking-[-0.03em]">
+                Audits & Inspections
+              </div>
+
+              <p className="mt-3 text-sm leading-7 text-white/60">
+                ISO 9001 quality audits, ASHRAE Level 1–3 energy audits, and
+                carbon audits structured around compliance and reporting
+                clarity.
+              </p>
             </div>
-            <p className="mt-3 text-sm leading-7 text-white/60">
-              ISO 9001 quality audits, ASHRAE Level 1–3 energy audits, and
-              carbon audits structured around compliance and reporting clarity.
-            </p>
           </div>
         </div>
       </div>
@@ -695,32 +689,12 @@ function NewLogoPanel() {
       <div className="absolute -right-[4%] bottom-[-8%] h-[42%] w-[18%] rotate-[31deg] border border-[#C9A55C]/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.025),rgba(0,0,0,0.22))]" />
 
       <div className="relative flex h-full items-center justify-center px-8 py-8">
-        <div className="grid w-full max-w-[960px] gap-5 md:grid-cols-[0.9fr_1.1fr]">
-          <div className="grid min-h-[320px] place-items-center rounded border border-[#C9A55C]/16 bg-black/35 p-6 shadow-[0_18px_60px_rgba(0,0,0,0.35)]">
-            <img
-              src={CAELUS_NEW_LOGO}
-              alt="New CaelusCore logo"
-              className="max-h-[260px] max-w-[80%] object-contain"
-            />
-          </div>
-
-          <div className="flex items-center">
-            <div className="w-full rounded border border-[#C9A55C]/16 bg-black/28 p-5">
-              <div className="text-[10px] uppercase tracking-[0.3em] text-[#C9A55C]">
-                Updated identity
-              </div>
-
-              <div className="mt-4 text-3xl font-light tracking-[-0.03em] text-[#F5F0E8]">
-                Cleaner. Stronger. More premium.
-              </div>
-
-              <div className="mt-4 space-y-3 text-sm leading-7 text-white/65">
-                <p>• Better visual consistency across print and web.</p>
-                <p>• More distinctive mark for stronger recall.</p>
-                <p>• A sharper overall feel that supports trust.</p>
-              </div>
-            </div>
-          </div>
+        <div className="grid min-h-[430px] w-full max-w-[760px] place-items-center rounded border border-[#C9A55C]/16 bg-black/35 p-8 shadow-[0_18px_60px_rgba(0,0,0,0.35)]">
+          <img
+            src={CAELUS_NEW_LOGO}
+            alt="New CaelusCore logo"
+            className="max-h-[310px] max-w-[82%] object-contain"
+          />
         </div>
       </div>
     </div>
@@ -732,15 +706,21 @@ function ShowcaseSlider({
   after,
   beforeNotes,
   afterNotes,
+  resetKey,
 }: {
   before: React.ReactNode;
   after: React.ReactNode;
   beforeNotes: NoteItem[];
   afterNotes: NoteItem[];
+  resetKey: string;
 }) {
-  const [position, setPosition] = useState(50);
+  const [position, setPosition] = useState(100);
   const [dragging, setDragging] = useState(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setPosition(100);
+  }, [resetKey]);
 
   function updatePosition(clientX: number) {
     const rect = wrapRef.current?.getBoundingClientRect();
@@ -833,6 +813,7 @@ function ShowcaseTabs({
     <div className="mb-8 flex flex-wrap gap-3">
       {showcaseItems.map((item) => {
         const isActive = active === item.id;
+
         return (
           <button
             key={item.id}
@@ -954,12 +935,18 @@ function ContactForm() {
         <label className={labelClass}>Service</label>
         <select
           name="service"
-          className="w-full border border-white/10 bg-black/40 px-4 py-3.5 text-sm text-[#B9B3AA] outline-none transition focus:border-[#C9A55C]/70"
+          className="w-full border border-white/10 bg-[#111111] px-4 py-3.5 text-sm text-[#F5F0E8] outline-none transition focus:border-[#C9A55C]/70"
         >
-          <option>Presence Review</option>
-          <option>Online Cleanup</option>
-          <option>Full Setup</option>
-          <option>Monthly Ads / Reporting</option>
+          <option className="bg-[#111111] text-[#F5F0E8]">
+            Presence Review
+          </option>
+          <option className="bg-[#111111] text-[#F5F0E8]">
+            Online Cleanup
+          </option>
+          <option className="bg-[#111111] text-[#F5F0E8]">Full Setup</option>
+          <option className="bg-[#111111] text-[#F5F0E8]">
+            Monthly Ads / Reporting
+          </option>
         </select>
       </div>
 
@@ -1006,10 +993,10 @@ function NavAccent({
     <button
       type="button"
       onClick={() => scrollToId(target)}
-      className="group relative px-1 py-2 text-[11px] uppercase tracking-[0.28em] text-white/58 transition duration-300 hover:text-[#F5F0E8]"
+      className="group relative px-1 py-2 text-[9px] uppercase tracking-[0.24em] text-white/55 transition duration-300 hover:text-[#F5F0E8]"
     >
-      <span className="absolute left-0 top-1/2 h-px w-0 -translate-y-1/2 bg-[#C9A55C] transition-all duration-300 group-hover:w-4" />
-      <span className="relative pl-0 transition-all duration-300 group-hover:pl-6">
+      <span className="absolute left-0 top-1/2 h-px w-0 -translate-y-1/2 bg-[#C9A55C] transition-all duration-300 group-hover:w-3" />
+      <span className="relative pl-0 transition-all duration-300 group-hover:pl-5">
         {label}
       </span>
       <span className="absolute bottom-0 left-0 h-px w-full origin-center scale-x-0 bg-[#C9A55C]/70 transition-transform duration-300 group-hover:scale-x-100" />
@@ -1125,7 +1112,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => scrollToId("#contact")}
-            className="hidden border border-[#C9A55C]/35 bg-[#C9A55C]/[0.04] px-4 py-2.5 text-[10px] uppercase tracking-[0.24em] text-[#C9A55C] transition duration-300 hover:bg-[#C9A55C] hover:text-black md:inline-flex"
+            className="hidden border border-[#C9A55C]/35 bg-[#C9A55C]/[0.04] px-4 py-2.5 text-[9px] uppercase tracking-[0.24em] text-[#C9A55C] transition duration-300 hover:bg-[#C9A55C] hover:text-black md:inline-flex"
           >
             Request Review
           </button>
@@ -1229,6 +1216,7 @@ export default function Home() {
             after={showcasePanels.after}
             beforeNotes={activeShowcase.beforeNotes}
             afterNotes={activeShowcase.afterNotes}
+            resetKey={activeExample}
           />
         </div>
       </section>
@@ -1246,51 +1234,33 @@ export default function Home() {
             </h2>
 
             <div className="mt-7 space-y-4 text-sm text-[#D7D0C5]">
-              <a
-                href={`mailto:${EMAIL}`}
-                className="flex items-center gap-3 transition hover:text-[#C9A55C]"
-              >
+              <div className="flex items-center gap-3">
                 <span className="grid h-10 w-10 place-items-center border border-white/10 bg-black/30 text-[#C9A55C]">
                   <Icon name="mail" />
                 </span>
-                {EMAIL}
-              </a>
+                <span>{EMAIL}</span>
+              </div>
 
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-3 transition hover:text-[#C9A55C]"
-              >
+              <div className="flex items-center gap-3">
                 <span className="grid h-10 w-10 place-items-center border border-white/10 bg-black/30 text-[#C9A55C]">
                   <Icon name="instagram" />
                 </span>
-                @auricstudio.co
-              </a>
+                <span>@auricstudio.co</span>
+              </div>
 
-              <a
-                href={LINKEDIN_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-3 transition hover:text-[#C9A55C]"
-              >
+              <div className="flex items-center gap-3">
                 <span className="grid h-10 w-10 place-items-center border border-white/10 bg-black/30 text-[#C9A55C]">
                   <Icon name="linkedin" />
                 </span>
-                LinkedIn
-              </a>
+                <span>linkedin.com/company/auricstudios</span>
+              </div>
 
-              <a
-                href={WEBSITE_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-3 transition hover:text-[#C9A55C]"
-              >
+              <div className="flex items-center gap-3">
                 <span className="grid h-10 w-10 place-items-center border border-white/10 bg-black/30 text-[#C9A55C]">
                   <Icon name="globe" />
                 </span>
-                theauricstudios.com
-              </a>
+                <span>theauricstudios.com</span>
+              </div>
             </div>
           </div>
 
@@ -1305,7 +1275,7 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-3">
-            <FooterIconLink href={`mailto:${EMAIL}`} icon="mail" />
+            <FooterIconLink href={EMAIL_HREF} icon="mail" />
             <FooterIconLink
               href={INSTAGRAM_URL}
               icon="instagram"
